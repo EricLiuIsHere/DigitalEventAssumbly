@@ -1,0 +1,102 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <p class="navbar-text navbar-left">HR Tool</p>
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">管理选项 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#/events/list">活动管理</a></li>
+          <li><a href="#/feedback/list">反馈管理</a></li>
+        </ul>
+      </li>
+    </ul>
+    <form class="navbar-form navbar-right" role="search">
+      <button type="submit" class="btn btn-default" ng-click="signOut()">退出</button>
+    </form>
+    <p class="navbar-text navbar-right">管理员您好</p>
+  </div>
+</nav>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <form class="form-horizontal" ng-submit="save()">
+          <div class="form-group">
+            <label for="title" class="col-md-2 control-label" style="font-size:20px">标题</label>
+            <div class="col-md-9 input-group-lg">
+              <input type="text" class="form-control" id="title" maxlength="16" ng-disabled="isFinished" ng-model="feedback.title" placeholder="title" required/>
+            </div>
+          </div>
+          <div ng-show="!isFinished">
+            <div ng-repeat="ques in feedback.questions track by $index">
+              <fieldset>
+                <div class="form-group " ng-init="index_0=$index">
+                  <legend class="col-md-10 col-md-offset-1"><small>问题 {{$index + 1}}</small></legend>
+                  <button type="button" class="close pull-left" ng-click="delQuestion($index)" style="margin-top:5px"><span>&times;</span></button>
+                </div>
+                <div class="form-group">
+                  <label for="ques{{$index + 1}}" class="col-md-2 control-label">问题内容</label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" id="ques{{$index + 1}}" ng-model="ques.question" required />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="type{{$index + 1}}">回答类型</label>
+                  <div class="col-md-4">
+                    <select id="type{{$index + 1}}" class="form-control" ng-model="ques.type">
+                      <option value="1">选择</option>
+                      <option value="2">打分</option>
+                      <option value="3">评论</option>
+                    </select>
+                  </div>
+                </div>
+                <div ng-if="ques.type=='1'">
+                  <div class="form-group" ng-repeat="option in feedback.questions[index_0].options track by $index">
+                    <label for="option{{$index+1}}" class="col-sm-2 control-label">选项 {{$index + 1}}</label>
+                    <div class="input-group col-md-9">
+                      <input type="text" class="form-control" id="option{{$index+1}}" ng-model="feedback.questions[index_0].options[$index]" required />
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-disabled="ques.options.length>=5" ng-click="addOption($index, index_0)"><span class="glyphicon glyphicon-plus"></span></button>
+                      <button type="button" class="btn btn-default" ng-disabled="ques.options.length<=2" ng-click="delOption($index, index_0)"><span class="glyphicon glyphicon-remove"></span></button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div ng-if="ques.type=='2'">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">打分方式</label>
+                    <div class="col-md-8">
+                      <label class="radio-inline">
+                        <input type="radio" name="starTypeOptions{{$index}}" ng-init="feedback.questions[index_0].rateType='1'" ng-click="feedback.questions[index_0].rateType='1'" checked /><img src="./image/star_single.png" style="width:20px">
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="starTypeOptions{{$index}}" ng-click="feedback.questions[index_0].rateType='2'"><img src="./image/smile_single.png" style="width:20px">
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+          <div ng-show="isFinished === true">
+            <div class="form-container text-center">
+              <div class="col-md-11 col-md-offset-5" id='qrcode'></div>
+              <div class="col-md-12">
+                <br/>
+                <br/>
+                <p>URL: <a ng-href="{{url}}" target="_blank">{{url}}</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-md-offset-6" ng-show="!isFinished">
+            <button type="button" class="btn btn-default" ng-click="addQuestion()"><span class="glyphicon glyphicon-plus"></span> 新增</button>
+            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span>保存</button>
+          </div>
+          <div class="col-md-12 col-md-offset-6" ng-show="isFinished === true">
+            <a ng-href="#/feedback/list" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span>返回</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

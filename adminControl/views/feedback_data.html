@@ -1,0 +1,84 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <p class="navbar-text navbar-left">IBM Digital Event</p>
+    <ul class="nav navbar-nav">
+      <li><a ng-href="#/events/list">活动管理</a></li>
+      <li><a ng-href="#/feedback/list">反馈管理</a></li>
+      <li class="active"><a ng-href="#/feedback/item/{{feedback.titleId}}">数据统计</a></li>
+    </ul>
+    <form class="navbar-form navbar-right" role="search">
+      <button type="submit" class="btn btn-default" ng-click="signOut()">退出</button>
+    </form>
+    <p class="navbar-text navbar-right">管理员您好</p>
+  </div>
+</nav>
+<section class="col-md-10 col-md-offset-1">
+  <h2>{{question.title}}</h2>
+  <h4><small>参与用户数： <strong>{{answer.length == 0 ? 0: answer.length}}</strong></small></h4>
+  <table ng-table="tableParams" class="table table-condensed table-hover dataTable" show-filter="setting.showAllFilters">
+    <tr>
+      <th class="text-center">#
+      </th>
+      <th class="text-center sortable header observation-header" ng-click="tableParams.sorting('tel', tableParams.isSortBy('tel', 'desc') ? 'asc' : 'desc')">用户手机号
+      </th>
+      <th class="text-center dataTh  sortable header observation-header" ng-repeat="ques in question.list" ng-click="tableParams.sorting('answer', tableParams.isSortBy('answer', 'desc') ? 'asc' : 'desc')">
+        <p title="{{ques.question}}">{{ques.question}}</p>
+      </th>
+    </tr>
+    <tbody>
+      <tr class="text-center" ng-repeat="ans in $data">
+        <td sortable="'$index'">{{$index + 1}}</td>
+        <td sortable="'tel'">{{ans.tel}}</td>
+        <td ng-repeat="ans_index in ans.answer track by $index" class="text-center" sortable="'answer'">
+          <div ng-if="question.list[$index].type == '1'">{{question.list[$index].options[ans_index - 1]}}</div>
+          <div ng-if="question.list[$index].type == '2'">
+            <ul class="list-inline">
+              <li>
+                <a class="star starChecked"></a>
+              </li>
+              <li ng-show="ans_index >= 2">
+                <a class="star starChecked"></a>
+              </li>
+              <li ng-show="ans_index >= 3">
+                <a class="star starChecked"></a>
+              </li>
+              <li ng-show="ans_index >= 4">
+                <a class="star starChecked"></a>
+              </li>
+              <li ng-show="ans_index == 5">
+                <a class="star starChecked"></a>
+              </li>
+            </ul>
+          </div>
+          <div ng-if="question.list[$index].type == '3'">
+            <ul class="list-inline">
+              <li ng-show="ans_index == 1">
+                <a class="emoj1 emoj1Checked"></a>
+                <span class="emojSpan">非常不满意</span>
+              </li>
+              <li ng-show="ans_index == 2">
+                <a class="emoj2 emoj2Checked"></a>
+                <span class="emojSpan">不满意</span>
+              </li>
+              <li ng-show="ans_index == 3">
+                <a class="emoj3 emoj3Checked"></a>
+                <span class="emojSpan">一般</span>
+              </li>
+              <li ng-show="ans_index == 4">
+                <a class="emoj4 emoj4Checked"></a>
+                <span class="emojSpan">满意</span>
+              </li>
+              <li ng-show="ans_index == 5">
+                <a class="emoj5 emoj5Checked"></a>
+                <span class="emojSpan">非常满意</span>
+              </li>
+            </ul>
+          </div>
+          <div ng-if="question.list[$index].type == '4'" class="text-overflow center-block text-center" title="{{ans_index}}">
+            {{ans_index}}
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

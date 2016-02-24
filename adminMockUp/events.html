@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  ng-app="eventsApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Events</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/events.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <p class="navbar-text navbar-left">HR Tool</p>
+        <p class="navbar-text navbar-right">欢迎 XXX</p>
+      </div>
+    </nav>
+    <section ng-controller="eventsBody">
+      <div class="container" >
+        <div class="row">
+          <div class="col-md-2" ng-repeat="x in events">
+          <div class="fliper" ng-mouseenter="showDetail(x.id)">
+            <header><p>{{x.college}}</p></header>
+            <article>
+              {{x.date}}
+            </article>
+          </div>
+          <div class="flip-down" ng-show="isShow==x.id" ng-mouseleave="hideDetail(x.id)">
+            <br/>
+            <h4>{{x.college}}</h4>
+            <p>{{x.address}}</p>
+            <p>{{x.date}}</p>
+            <br/>
+            <div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
+              <a href="#" class="btn btn-info" role="button" ng-click="editEvent($index,x.id)">编辑</a>
+              <a href="#" class="btn btn-info" role="button" ng-click="infoEvent($index,x.id)">详情</a>
+              <a href="#" class="btn btn-danger" role="button" ng-click="removeEvent($index,x.id)">删除</a>
+            </div>
+          </div>
+          </div>
+          <div class="col-md-3">
+          <div class="add-event">
+            <a class="btn btn-default btn-add" href="#" role="button" ng-click='addNew()'>+</a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/pre.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controller/events.js"></script>
+  </body>
+</html>

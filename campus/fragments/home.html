@@ -1,0 +1,22 @@
+<div ng-class="{'1':'dark-intro', '2':'blue-intro', '3':'green-intro'}[theme]" ng-hide="loading">
+	<div class="data-line">{{eventDate}}</div>
+	<div class="sub-head">
+		<a class="right-back" href="#/main"></a>
+		<a class="sub-menu" href="#/main"></a>
+	</div>
+	<div class="intro-body" id="hr-list-info">		
+		<a ng-repeat="item in scrollItems | orderBy: 'topicID'" ng-href="#/detail/{{item.topicID}}" ng-if="item.speakerName != ''">
+			<div class="intro-list">
+				<ul class="intro-list-info">
+					<li><img ng-src="{{ item.speakerimg || 'http://gcghrcampus.b0.upaiyun.com/static/images/photo-none.jpg' }}" alt="" width="100" height="100"/></li>
+					<li>
+						<p class="info-name">{{ item.speakerName }}</p>
+						<p class="info-title">{{ item.topicName }}</p>
+						<p class="info-like-comm"><span ng-class="{true: 'info-like fa fa-heart', false: 'info-like fa fa-heart-o'}[item.isRating == '1']" ng-click="rate($event,this)">  {{ item.rating }}</span><span class="info-comm">{{ item.commentsCount }}</span></p>
+					</li>
+				</ul>
+			</div>
+			<br />
+		</a>
+	</div>
+</div>

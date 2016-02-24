@@ -1,0 +1,32 @@
+<div ng-class="{'1':'dark-intro-detail', '2':'blue-intro-detail', '3':'green-intro-detail'}[theme]" ng-hide="loading">
+  <div class="data-line">{{eventDate}}</div>
+  <div class="sub-head">
+    <a class="right-back" href="#/home"></a>
+    <a class="sub-menu" href="#/main"></a>
+  </div>
+  <div class="detail-body">
+    <div class="per-info">
+		<!-- <a href="javascript:;" class="info-down-arrow"></a> -->
+      <ul class="intro-list-info">
+        <li><img ng-src="{{ topic.speakerImage || 'http://gcghrcampus.b0.upaiyun.com/static/images/photo-none.jpg' }}" width="80" height="80" /></li>
+        <li>
+          <p class="info-name">{{topic.speaker}}</p>
+          <p class="info-title">{{topic.topicDesc}}</p>
+          <p class="info-like-comm"><span ng-class="{true: 'info-like fa fa-heart', false: 'info-like fa fa-heart-o'}[topic.hadRated == '1']" ng-click="topic.rate()"> {{topic.rating}}</span></p>
+        </li>
+      </ul>
+    </div>
+    <div class="detail-comment">
+      <p class="comment-title">评论 &amp; 提问（<span>{{commentsCount}}</span>）</p>    
+      <form action="javascript:;" class="detail-comment-form">
+        <textarea placeholder="140 字限制" ng-model="commentsArea" name="comment" id="hr-detail-comments-area"></textarea>
+        <p class="detail-comment-button">
+          <button class="hr-detail-buttom" ng-click="topic.postComment()">{{submitText}}</button>
+        </p>
+      </form>
+    </div>
+    <div class="detail-comment-list">
+      <ul class="comment-list" ng-hide="hideBand"></ul>
+    </div>
+  </div>
+</div>

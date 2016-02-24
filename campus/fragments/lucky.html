@@ -1,0 +1,37 @@
+<div ng-class="{'1':'dark-shake', '2':'blue-shake', '3':'green-shake'}[theme]">
+	<div class="data-line">{{eventDate}}</div>
+	<div class="sub-head">
+		<a class="right-back" href="#/main"></a>
+		<a class="sub-menu" href="#/main"></a>
+	</div>
+	<!--Do not forget delete inline style-->
+	<div class="overlay" style="display:none">
+		<div class="overlay-container">
+			<div class="box">
+				<div class="headbar">
+					<span class="circle"></span>
+					<span class="icon-close" ng-click="closeOverlay()"></span>
+				</div>
+				<div class="content-box">
+					<div class="content">
+						<p class="face" id="face"></p>
+						<p class="note" id="note"></p>
+						<p class="button-container"><a class="btn" href="javascript:void(0);" id="continue">继 续 摇</a></p>
+					</div>
+				</div>
+			</div>
+		</div>				
+	</div>
+	<div class="shake-content">
+		<div class="shake-outer">
+			<!--img id="shakeAnimation" class="shake" src="./images/dark_shake_bg.png"-->
+			<img id="shakeAnimation" class="shake" ng-src="{{shakeImg}}">
+		</div>
+		<p>轻松摇一摇 好运好礼速速到</p>
+	</div>
+	<audio id="sound">
+        <source src="http://gcghrcampus.b0.upaiyun.com/static/images/sound.ogg" type="audio/ogg">
+        <source src="http://gcghrcampus.b0.upaiyun.com/static/images/sound.mp3" type="audio/mpeg">
+        您的设备不支持音频播放. 
+    </audio>
+</div>

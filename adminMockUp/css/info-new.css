@@ -1,0 +1,44 @@
+.sim img{
+	width: 90%;
+}
+.tab-pane{
+	border-radius: 2px;
+	min-height: 600px;
+}
+.text-right-align{
+	margin-left: 91%;
+	padding-top: 10px
+}
+.form-container,.message-container,.result-container{
+	padding: 5%;
+}
+.input-group[class*=col-] {
+    float: none;
+    padding-right: 15px;
+    padding-left: 15px
+}
+button.file-upload{
+	background-color: lightgreen;
+}
+.nav-tabs{
+	border-bottom: none;
+}
+.nav-tabs>li>a {
+	background-color:#F3F2F1;
+	color: black; 
+    border-radius: 5px 5px 5px 5px;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    background-color:#0098D9;
+	color: white;
+}
+.tab-content>.tab-pane {
+    margin-top: 10px;
+    background: #F3F2F1;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+	background-color: white;
+}
+.glyphicon{
+	cursor: pointer;
+}

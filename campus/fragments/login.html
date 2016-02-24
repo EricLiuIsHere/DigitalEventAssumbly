@@ -1,0 +1,11 @@
+<div ng-class="{'1':'dark-reg-login', '2':'blue-reg-login', '3':'green-reg-login'}[theme]" ng-hide="loading">
+  <div class="data-line">{{eventDate}}</div>
+  <div class="reg-login-body login">
+    <p class="reg-login-bar"><span class="left-line"></span>{{eventTitle}}<span class="right-line"></span></p>
+    <form id="hr-login" ng-submit="login()" role="form" class="reg-login-form">
+      <input type="tel" required pattern="^1\d{10}$" title="输入正确的手机号" ng-model="tel" placeholder="输入注册的手机号">
+      <button class="hr-login-buttom">{{loginMsg}}</button>
+      <p><a ng-href="{{regUrl}}">新用户注册</a></p>
+    </form>
+  </div>
+</div>

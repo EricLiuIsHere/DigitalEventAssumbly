@@ -1,0 +1,211 @@
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.question {
+  margin: 5%;
+}
+
+.answer {
+  margin-left: 2px;
+  margin-right: 5px;
+  margin-top: -5px;
+}
+
+.item {
+  width: 100%;
+  float: left;
+}
+
+.nullItem {
+  /*border: 1px #337ab7 solid;*/
+  -webkit-animation-name: shineRed;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes shineRed {
+  from {
+    -webkit-box-shadow: 0 0 5px #337ab7;
+  }
+  50% {
+    -webkit-box-shadow: 0 0 10px red;
+  }
+  to {
+    -webkit-box-shadow: 0 0 5px #337ab7;
+  }
+}
+
+.star {
+  padding: 0 30px 14px 0;
+  background-image: url(../image/star.png);
+  background-repeat: no-repeat;
+}
+
+.starChecked {
+  padding: 0 30px 14px 0;
+  background-image: url(../image/star.png);
+  background-repeat: no-repeat;
+  background-position: -30px 0;
+}
+
+.emoj1 {
+  padding: 0 30px 14px 0;
+  background-image: url(../image/smile.png);
+  background-repeat: no-repeat;
+  background-position: 0 -40px;
+}
+
+.emoj1Checked {
+  background-position: 0 0;
+}
+
+.emoj2 {
+  padding: 0 30px 14px 0;
+  background-image: url(../image/smile.png);
+  background-repeat: no-repeat;
+  background-position: -50px -40px;
+}
+
+.emoj2Checked {
+  background-position: -50px 0;
+}
+
+.emoj3 {
+  padding: 0 30px 14px 0;
+  background-image: url(../image/smile.png);
+  background-repeat: no-repeat;
+  background-position: -100px -40px;
+}
+
+.emoj3Checked {
+  background-position: -100px 0;
+}
+
+.emoj4 {
+  padding: 0 30px 14px 0;
+  background-image: url(../image/smile.png);
+  background-repeat: no-repeat;
+  background-position: -150px -40px;
+}
+
+.emoj4Checked {
+  background-position: -150px 0;
+}
+
+.emoj5 {
+  padding: 0 30px 14px 0;
+  background-image: url(../image/smile.png);
+  background-repeat: no-repeat;
+  background-position: -200px -40px;
+}
+
+.emoj5Checked {
+  background-position: -200px 0;
+}
+
+nav.navbar p.text-primary {
+  color: #337ab7;
+}
+
+nav.navbar p.text-danger {
+  color: #a94442;
+}
+
+.saveArea {
+  bottom: 0;
+  margin-bottom: 2px;
+  width: 100%;
+  position: fixed;
+}
+
+#telModal {
+  top: 10%;
+}
+
+h4.showNone {
+  color: red;
+}
+
+.quesBGC {
+  background: #F3F2F1;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: 100px;
+  margin-right: 100px;
+  border-radius: 7px;
+}
+
+.quesLeft {
+  background: #F3F2F1;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 7px;
+}
+
+.quesRight {
+  margin-left: 20px;
+  margin-right: -20px;
+  background: #F3F2F1;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 7px;
+}
+
+.successBox {
+  width: 100%;
+  display: block;
+  position: fixed;
+  top: 5px;
+  z-index: 10;
+}
+
+.successMsg {
+  display: block;
+  width: 25%;
+  padding: 10px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 20px;
+  background: #1fcf6d;
+  border-radius: 5px;
+  color: white;
+}
+
+a.qrUrl {
+  width: auto;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-bottom: 18px;
+  margin-top: 20px;
+  margin-left: -40px;
+  margin-right: -40px
+}
+
+span.emojSpan {
+  display: inline-block;
+  position: relative;
+  top: 8px;
+  left: 3px;
+  width: 80px;
+}
+
+.text-overflow {
+  width:300px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+table.dataTable th.dataTh p{
+  max-width: 300px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

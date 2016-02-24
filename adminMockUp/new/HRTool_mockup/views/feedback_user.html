@@ -1,0 +1,92 @@
+<div ng-if="isNew">
+  <nav class="navbar navbar-default">
+    <h3 class="navbar-text text-center">{{feedback.title}}</h3>
+  </nav>
+  <section>
+    <div>
+      <div ng-repeat="ques in feedback.questions track by $index">
+        <h4>Q{{$index + 1}}: {{ques.question}}</h4>
+        <div class="answer" style="margin-bottom:30px" ng-init="index_0=$index">
+          <div ng-show="ques.type=='1'">
+            <div class="radio" ng-repeat="option in ques.options track by $index">
+              <label>
+                <input type="radio" name="optionsRadios{{index_0 + 1}}" value="{{$index + 1}}" ng-model="ques.answer">{{option}}
+              </label>
+            </div>
+          </div>
+          <div ng-show="ques.type=='2'">
+            <div ng-show="ques.options[0]">
+              <ul class="list-inline">
+                <li>
+                  <a class="star" ng-class="{starChecked: ques.answer>=1}" ng-click="ques.answer=1"></a>
+                </li>
+                <li>
+                  <a class="star" ng-class="{starChecked: ques.answer>=2}" ng-click="ques.answer=2"></a>
+                </li>
+                <li>
+                  <a class="star" ng-class="{starChecked: ques.answer>=3}" ng-click="ques.answer=3"></a>
+                </li>
+                <li>
+                  <a class="star" ng-class="{starChecked: ques.answer>=4}" ng-click="ques.answer=4"></a>
+                </li>
+                <li>
+                  <a class="star" ng-class="{starChecked: ques.answer>=5}" ng-click="ques.answer=5"></a>
+                </li>
+              </ul>
+            </div>
+            <div ng-show="!ques.options[0]">
+              <ul class="list-inline">
+                <li>
+                  <a class="emoj1" ng-class="{emoj1Checked: ques.answer==1}" ng-click="ques.answer=1"></a>
+                </li>
+                <li>
+                  <a class="emoj2" ng-class="{emoj2Checked: ques.answer==2}" ng-click="ques.answer=2"></a>
+                </li>
+                <li>
+                  <a class="emoj3" ng-class="{emoj3Checked: ques.answer==3}" ng-click="ques.answer=3"></a>
+                </li>
+                <li>
+                  <a class="emoj4" ng-class="{emoj4Checked: ques.answer==4}" ng-click="ques.answer=4"></a>
+                </li>
+                <li>
+                  <a class="emoj5" ng-class="{emoj5Checked: ques.answer==5}" ng-click="ques.answer=5"></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div ng-show="ques.type=='3'">
+            <input type="text" class="feedbackInput" ng-model="ques.answer">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+      <button type="button" class="btn btn-primary btn-lg btn-block center-block" style="width:50%" ng-click="save()">Save</button>
+    </nav>
+  </footer>
+</div>
+<div ng-if="isNew === false">
+  <h2>感谢参与!</h2>
+</div>
+<div class="modal fade" id="telModal" tabindex="-1" role="dialog" aria-labelledby="telModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Welcome</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <label for="ques{{$index + 1}}" class="col-md-2 control-label">Telephone</label>
+          <div class="col-md-9">
+            <input type="number" class="form-control" id="ques{{$index + 1}}" ng-model="feedback.tel" ng-maxlength="11" ng-minlength="11" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-block center-block" style="width:50%" id="checkBtn" data-loading-text="Checking..." ng-disabled="!feedback.tel" ng-click="check()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <p class="navbar-text navbar-left">HR Tool</p>
+        <p class="navbar-text navbar-right"></p>
+      </div>
+    </nav>
+    <section>
+      <div class="container" ng-controller="loginForm">
+
+      <form class="form-signin">
+        <h2 class="form-signin-heading text-center">用户登陆</h2>
+        <p>{{errorMsg}}</p>
+        <br/>
+        <label for="inputEmail" class="sr-only">用户名</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="用户名" required autofocus ng-model="user.username">
+        <br/>
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="密码" required ng-model="user.password">
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" ng-click="submitForm()" type="submit">登陆</button>
+      </form>
+
+    </div>
+        
+    </section>
+
+    

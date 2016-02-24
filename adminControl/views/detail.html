@@ -1,0 +1,302 @@
+
+    <nav class="navbar navbar-default" ng-controller="specificEdit">
+      <div class="container">
+        <p class="navbar-text navbar-left">IBM Digital Event</p>
+        <ul class="nav navbar-nav">
+          <li><a href="#/events/list">活动管理</a></li>
+          <li class="active"><a href="#{{urlForA}}">活动详情 <span class="sr-only">(current)</span></a></li>
+        </ul>
+        <form class="navbar-form navbar-right" role="search">
+          <button type="submit" class="btn btn-default" ng-click="signOut()">退出</button>
+        </form>
+        <p class="navbar-text navbar-right">管理员您好</p>
+
+      </div>
+
+    </nav>
+
+    <div ng-controller="errorMsg" class="errorBox" ng-show="showErrorMsg"><p class="errorMsg">{{errorMsg}}</p></div>
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist" id='detailTab'>
+                <li role="presentation" class="active"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">留言</a></li>
+                <li role="presentation"><a href="#admincomments" aria-controls="admincomments" role="tab"  data-toggle="tab">管理员留言</a></li>
+                <li role="presentation"><a href="#signup" aria-controls="signup" role="tab"  data-toggle="tab">签到名单</a></li>
+                <li role="presentation"><a href="#register" aria-controls="register" role="tab"  data-toggle="tab">注册名单</a></li>
+                <li role="presentation"><a href="#lucky" aria-controls="lucky" role="tab"  data-toggle="tab">开奖结果</a></li>
+                <button ng-controller="refreshAll" type="button" ng-click="refreshAll()" class="btn btn-default refresh-all" data-dismiss="modal">刷新所有 <span class="glyphicon glyphicon-refresh"></span></button>
+
+              </ul>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="comments" ng-controller="commentsDetails">
+                <div class="col-md-2">
+                <br/>
+                <form class="form-horizontal">
+                  <div class="">
+                    <select ng-change="change(selector)" ng-model="selector">
+                      <option >选择主讲</option>
+                      <option ng-repeat='x in topicArray' value="{{x.topicId}}">{{x.speakerName}}</a></option>
+                    </select>
+                  </div>
+                </form>
+                  
+                </div>
+                <div class="col-md-10"><!-- adminComments{{descInfo.adminComments}}checkUsers{{descInfo.checkedUsers}}registerUsers{{descInfo.registerUsers}}users{{descInfo.users}} --></div>
+                <!-- <div class="col-md-2"><br/><button type="button" class="btn btn-primary">刷新 &nbsp;<span class="projector glyphicon glyphicon-refresh"></span></button></div> -->
+                
+                  <div class="col-md-12">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th width="10%">选择</th>
+                          <th>留言</th>
+                          <th width="10%">操作</th>
+                        </tr>
+                      </thead>
+                      <tbody ng-model="test">
+                        <tr ng-repeat="x in thisComments">
+                          <th scope="row">
+                          <label>
+                            <input ng-click='addToList(x.cid,ifCheck)' ng-checked="x.choosen == 1" ng-model="ifCheck" type="checkbox" id='comment_{{x.cid}}'>
+                            </label>
+                          </th>
+                          <td>{{x.comments}}</td>
+                          <td><span class="glyphicon glyphicon-trash" ng-click='removeComment(x.cid)'></span></td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                    <div class="btn-group">
+                    <!-- <button type="button" class="btn btn-default" ng-click="removeComments()">
+                      批量删除
+                    </button> -->
+
+                  </div>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default" ng-click="saveQuestion()">
+                      投到大屏
+                    </button>
+                  </div>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="admincomments" ng-controller="adminCommentsController">
+                  <div class="col-md-12">
+                  <br/>
+                  <form class="form-horizontal" ng-model="adminComments">
+                    <div class="form-group" id="adminContentQuestion0">
+                      <div class="col-sm-1">
+                          <div class="checkbox"><label><input ng-model="adminComments.first.checkbox" type="checkbox"></label></div>
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control"  ng-model="adminComments.first.from"  placeholder="来自xxx">
+                      </div>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="adminComments.first.comment" placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                      </div>     
+                    </div>
+
+                    <div class="form-group" id="adminContentQuestion1">
+                      <div class="col-sm-1">
+                          <div class="checkbox"><label><input ng-model="adminComments.second.checkbox"  type="checkbox"></label></div>
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control"  ng-model="adminComments.second.from"     placeholder="来自xxx">
+                      </div>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="adminComments.second.comment"   placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                      </div>     
+                    </div>
+                    <div class="form-group" id="adminContentQuestion2">
+                      <div class="col-sm-1">
+                          <div class="checkbox"><label><input ng-model="adminComments.third.checkbox" type="checkbox"></label></div>
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control"  ng-model="adminComments.third.from"     placeholder="来自xxx">
+                      </div>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="adminComments.third.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                      </div>     
+                    </div>
+
+                    <div class="form-group" id="adminContentQuestion3">
+                      <div class="col-sm-1">
+                          <div class="checkbox"><label><input ng-model="adminComments.fourth.checkbox" type="checkbox"></label></div>
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control"  ng-model="adminComments.fourth.from"     placeholder="来自xxx">
+                      </div>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="adminComments.fourth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                      </div>     
+                    </div>
+                    <div class="form-group" id="adminContentQuestion4">
+                      <div class="col-sm-1">
+                          <div class="checkbox"><label><input ng-model="adminComments.fifth.checkbox" type="checkbox"></label></div>
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control"  ng-model="adminComments.fifth.from"     placeholder="来自xxx">
+                      </div>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="adminComments.fifth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                      </div>     
+                    </div>
+                    <div class="form-group" id="adminContentQuestion5">
+                      <div class="col-sm-1">
+                          <div class="checkbox"><label><input ng-model="adminComments.sixth.checkbox" type="checkbox"></label></div>
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control"  ng-model="adminComments.sixth.from"     placeholder="来自xxx">
+                      </div>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="adminComments.sixth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                      </div>     
+                    </div>
+                    <div class="form-group" id="adminContentQuestion6">
+                      <div class="col-sm-1">
+                          <div class="checkbox"><label><input ng-model="adminComments.seventh.checkbox" type="checkbox"></label></div>
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control"  ng-model="adminComments.seventh.from"     placeholder="来自xxx">
+                      </div>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="adminComments.seventh.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                      </div>     
+                    </div>
+                    
+                    <div class="form-group" id="adminContentQuestion7">
+                      <div class="col-sm-1">
+                          <div class="checkbox"><label><input ng-model="adminComments.eighth.checkbox" type="checkbox"></label></div>
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control"  ng-model="adminComments.eighth.from"     placeholder="来自xxx">
+                      </div>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="adminComments.eighth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                      </div>     
+                    </div>
+                    <div class="form-group" id="adminContentQuestion8">
+                      <div class="col-sm-1">
+                          <div class="checkbox"><label><input ng-model="adminComments.nineth.checkbox" type="checkbox"></label></div>
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control"  ng-model="adminComments.nineth.from"     placeholder="来自xxx">
+                      </div>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="adminComments.nineth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                      </div>     
+                    </div>
+                    <div class="form-group" id="adminContentQuestion9">
+                      <div class="col-sm-1">
+                          <div class="checkbox"><label><input ng-model="adminComments.tenth.checkbox" type="checkbox"></label></div>
+                      </div>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control"  ng-model="adminComments.tenth.from"     placeholder="来自xxx">
+                      </div>
+                      <div class="col-sm-8">
+                          <input type="text" class="form-control" ng-model="adminComments.tenth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                      </div>     
+                    </div>
+
+
+                    <div class="col-sm-10">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveChanges" ng-click="saveAdminComments()">保存并显示已选</button>
+                    </div>
+                    <div class="col-sm-2">
+                      <button type="button" class="btn btn-default" ng-click="resetAdminComments()" data-dismiss="modal">重置</button>
+                    </div>
+                  </form>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="signup">
+                <br/>
+                <div class="col-md-12">
+                  <table class="table table-bordered ">
+                    <thead>
+                      <tr>
+                        <th width="30%">姓名</th>
+                        <th width="60%">手机</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in descInfo.checkedUsers">
+                        <th scope="row">{{x.username}}</th>
+                        <td>{{x.pnum}}</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="register">
+                <br/>
+                <div class="col-md-12">
+                  <table class="table table-bordered ">
+                    <thead>
+                      <tr>
+                        <th width="10%">姓名</th>
+                        <th width="15%">学校</th>
+                        <th width="15%">专业</th>
+                        <th width="10%">年级</th>
+                        <th width="15%">邮箱</th>
+                        <th width="10%">手机</th>
+                        <th width="15%">时间</th>
+                        <th width="10%">是否签到</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat='x in descInfo.registerUsers'>
+
+                        <th scope="row">{{x.username}}</th>
+                        <td>{{x.school}}</td>
+                        <td>{{x.major}}</td>
+                        <td>{{x.grade}}</td>
+                        <td>{{x.email}}</td>
+                        <td>{{x.pnum}}</td>
+                        <td>{{x.createdTS.substring(0,10)}}</td>
+                        <td>{{x.checked}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="lucky">
+                <br/>
+                  <div class="col-md-12">
+                   <table class="table table-bordered ">
+                    <thead>
+                      <tr>
+                        <th width="10%">姓名</th>
+                        <th width="15%">学校</th>
+                        <th width="15%">专业</th>
+                        <th width="10%">年级</th>
+                        <th width="15%">邮箱</th>
+                        <th width="10%">手机</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in descInfo.users">
+
+                        <th scope="row">{{x.username}}</th>
+                        <td>{{x.school}}</td>
+                        <td>{{x.major}}</td>
+                        <td>{{x.grade}}</td>
+                        <td>{{x.email}}</td>
+                        <td>{{x.pnum}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+                </div>
+              </div>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

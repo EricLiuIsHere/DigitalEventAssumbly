@@ -1,0 +1,24 @@
+<div ng-class="{'1':'dark-reg-login', '2':'blue-reg-login', '3':'green-reg-login'}[theme]" ng-hide="loading">
+	<div class="data-line">{{eventDate}}</div>
+	<div class="reg-login-body reg">
+		<p class="reg-login-bar"><span class="left-line"></span>{{eventTitle}}<span class="right-line"></span></p>
+		<form id="hr-reg-form" ng-submit="regFn()" role="form" class="reg-login-form">
+			<input type="text" placeholder="姓名" title="姓名" required="required" name="name" data-label="姓名"/>
+			<input type="text" placeholder="学校" title="学校" required="required" name="school" data-label="学校"/>
+			<input type="text" placeholder="专业" title="专业" required="required" name="major" data-label="专业"/>
+			<select name="grade">
+          		<option value="大一">大一</option>
+          		<option value="大二">大二</option>
+          		<option value="大三">大三</option>
+          		<option value="大四">大四</option>
+          		<option value="研一">研一</option>
+          		<option value="研二">研二</option>
+          		<option value="研三">研三</option>
+          		<option value="博士在读">博士在读</option>
+          	</select>
+			<input type="text" placeholder="邮箱" title="邮箱" required="required" name="email" data-label="邮箱"/>
+			<input type="text" placeholder="手机" title="手机" required="required" name="tel" data-label="手机" pattern="^1\d{10}$"/>
+			<button class="hr-reg-btn">{{regMsg}}</button>
+		</form>
+	</div>
+</div>

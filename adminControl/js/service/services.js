@@ -20,8 +20,8 @@ appServices.factory('adminService', function($http, $q) {
     userInfo;
     console.log(window.location.hostname)
   if (window.location.hostname == 'localhost' || window.location.hostname == '9.115.24.168') {
-    host = 'http://9.115.24.168:9081/campus/';
-    // host = 'http://9.112.68.74:9080/campus/';
+    host = 'http://9.115.24.168:9080/campus/';
+    // host = 'http://9.112.69.0:9080/campus/';
     // host = 'https://9.115.24.168:9443/campus/';
   } else if (window.location.hostname == '170.225.225.31') {
     host = 'http://9.98.15.31:9080/campus/';
@@ -104,6 +104,9 @@ appServices.factory('adminService', function($http, $q) {
     },
     saveQuestion: function(data){
       return $http.jsonp(host + 'SaveQuestion?jsonStr=' + data + '&callback=JSON_CALLBACK');
+    },
+    saveAdminComments:function(id,data){
+      return $http.jsonp(host + 'SaveAdminComments' + id + '&jsonStr=' + data + '&callback=JSON_CALLBACK');
     },
     /**
      * Returns

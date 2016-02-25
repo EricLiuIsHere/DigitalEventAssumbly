@@ -166,7 +166,7 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
                 if(data.Message == 'Success'){
                   for(i in $scope.thisComments){
                         if($scope.thisComments[i].cid!=null && $scope.thisComments[i].cid == id){
-                            console.log($scope.thisComments[i])
+                           console.log($scope.thisComments[i])
                            $scope.thisComments.remove(i); 
                         }
                     }
@@ -186,7 +186,11 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
         adminService.saveQuestion(encodeURIComponent(JSON.stringify($scope.displayList))).success(function(data){
                 notAdmin(data);
                 console.log(data);
-                
+                if(data.Message == 'Success'){
+                    alert("已投到大屏幕")
+                }else{
+                    alert("投到大屏幕失败，请稍后重试")
+                }
             }).error(function(err){
                 console.log('error');
             });
@@ -195,8 +199,35 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
 
 appControllers.controller('adminCommentsController',['$scope','$timeout','$rootScope','adminService', function($scope,$timeout,$rootScope,adminService){
     $scope.saveAdminComments = function(){
-        $scope.adminComments.first.checkbox = 1;
         console.log($scope.adminComments)
+        $scope.sumComments = [];
+        $scope.thisChecked = '0';
+        for(i in $scope.adminComments){
+            if($scope.adminComments[i].comment){
+            }else{
+                $scope.adminComments[i].comment = '';
+            }
+            if($scope.adminComments[i].from){
+            }else{
+                $scope.adminComments[i].from = '';
+            }
+            if($scope.adminComments[i].checkbox){
+                $scope.thisChecked = '1';
+            }else{
+                $scope.thisChecked = '0';
+            }
+            $scope.sumComments.push({"comments":$scope.adminComments[i].comment,"from":$scope.adminComments[i].from,"checked":$scope.thisChecked})
+        }
+        console.log($scope.sumComments)
+        var addr = window.location.href.toString();
+        var id = addr.substring(addr.indexOf("?eventId="), addr.length);
+        adminService.saveAdminComments(id,encodeURIComponent(JSON.stringify($scope.sumComments))).success(function(data){
+            notAdmin(data);
+            console.log(data);
+        }).error(function(err){
+            console.log('error');
+        });
+        
     }
     $scope.resetAdminComments = function(){
         $scope.adminComments = null;

@@ -204,7 +204,7 @@
 
 
                     <div class="col-sm-10">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveChanges" ng-click="saveAdminComments()">保存并显示已选</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveChanges" ng-click="saveAdminComments()">保存并显示已选到大屏</button>
                     </div>
                     <div class="col-sm-2">
                       <button type="button" class="btn btn-default" ng-click="resetAdminComments()" data-dismiss="modal">重置</button>
@@ -215,6 +215,7 @@
                 <div role="tabpanel" class="tab-pane" id="signup">
                 <br/>
                 <div class="col-md-12">
+                <p>签到人数： {{descInfo.checkedUsers.length}}</p>
                   <table class="table table-bordered ">
                     <thead>
                       <tr>
@@ -235,6 +236,7 @@
                 <div role="tabpanel" class="tab-pane" id="register">
                 <br/>
                 <div class="col-md-12">
+                <p>注册人数： {{descInfo.registerUsers.length}}</p>
                   <table class="table table-bordered ">
                     <thead>
                       <tr>
@@ -245,7 +247,6 @@
                         <th width="15%">邮箱</th>
                         <th width="10%">手机</th>
                         <th width="15%">时间</th>
-                        <th width="10%">是否签到</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -258,7 +259,6 @@
                         <td>{{x.email}}</td>
                         <td>{{x.pnum}}</td>
                         <td>{{x.createdTS.substring(0,10)}}</td>
-                        <td>{{x.checked}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -267,6 +267,7 @@
                 <div role="tabpanel" class="tab-pane" id="lucky">
                 <br/>
                   <div class="col-md-12">
+                  <p>获奖人数： {{descInfo.users.length}}</p>
                    <table class="table table-bordered ">
                     <thead>
                       <tr>

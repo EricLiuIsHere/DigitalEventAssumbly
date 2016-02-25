@@ -5,7 +5,8 @@ appServices.factory('HRService', function($http, $q){
 	if(window.location.hostname == '170.225.225.31'){
 	    host = 'http://170.225.225.31:9080';
 	} else {
-	    host = 'http://9.115.24.168:9081';
+	    //host = 'http://9.115.24.168:9081';
+	    host = 'http://9.115.24.168:9080';
 	} 
 	return {
 		loadTopicList: function(eventId){

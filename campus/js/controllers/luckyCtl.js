@@ -69,7 +69,7 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
             if(window.location.hostname == '170.225.225.31'){
                 host = 'http://170.225.225.31:9080/campus/Shaking';
             } else {
-                host = 'http://9.115.26.86:9080/campus/Shaking';
+                host = 'http://9.115.24.168:9080/campus/Shaking';
             } 
 
             $.ajax({

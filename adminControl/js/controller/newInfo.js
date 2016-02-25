@@ -14,7 +14,7 @@ var currentHost,
     eventIP;
   if (window.location.hostname == 'localhost' || window.location.hostname == '9.115.24.168') {
     currentHost = 'http://9.115.24.168';
-    currentPort= "9081";
+    currentPort= "9080";
     eventIP = 'http://9.115.24.168';
     // host = 'http://9.115.28.96:9080/campus/';
     // host = 'https://9.115.24.168:9443/campus/';
@@ -24,7 +24,7 @@ var currentHost,
     currentPort = '9080';
   }else {
     currentHost = 'http://9.115.24.168';
-    currentPort = '9081';
+    currentPort = '9080';
     eventIP = 'http://9.115.24.168';
   }
 

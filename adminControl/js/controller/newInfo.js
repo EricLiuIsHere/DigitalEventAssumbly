@@ -18,7 +18,12 @@ var currentHost,
     eventIP = 'http://9.115.24.168';
     // host = 'http://9.115.28.96:9080/campus/';
     // host = 'https://9.115.24.168:9443/campus/';
-  } else if (window.location.hostname == '170.225.225.31') {
+  }else if(window.location.hostname == '159.122.251.251'){
+    currentHost = 'http://159.122.251.251';
+    currentPort= "9080";
+    eventIP = 'http://159.122.251.251';
+    
+  }  else if (window.location.hostname == '170.225.225.31') {
     currentHost = 'http://9.98.15.31';
     eventIP = 'http://170.225.225.31:81';
     currentPort = '9080';

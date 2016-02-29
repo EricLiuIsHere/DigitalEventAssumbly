@@ -23,10 +23,11 @@ appServices.factory('adminService', function($http, $q) {
     host = 'http://9.115.24.168:9080/campus/';
     // host = 'http://9.112.69.0:9080/campus/';
     // host = 'https://9.115.24.168:9443/campus/';
+  }else if(window.location.hostname == '159.122.251.251'){
+    host = 'http://159.122.251.251:9080/campus/'
   } else if (window.location.hostname == '170.225.225.31') {
     host = 'http://9.98.15.31:9080/campus/';
-  }
-  else {
+  }else {
     host = 'http://9.115.24.168:9081/campus/';
   }
 

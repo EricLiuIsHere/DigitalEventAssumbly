@@ -25,7 +25,7 @@
 	<div class="shake-content">
 		<div class="shake-outer">
 			<!--img id="shakeAnimation" class="shake" src="./images/dark_shake_bg.png"-->
-			<img id="shakeAnimation" class="shake" ng-src="{{shakeImg}}">
+			<img id="shakeAnimation" ng-class="{'1':'shake', '2':'shake', '3':'lr-shake'}[theme]" ng-src="{{shakeImg}}">
 		</div>
 		<p>轻松摇一摇 好运好礼速速到</p>
 	</div>

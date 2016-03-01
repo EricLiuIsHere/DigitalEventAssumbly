@@ -2,17 +2,17 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
     var dd = new Date();
     var preLoadData = HRService.preLoad.getPreDate();
     $scope.eventDate = preLoadData.initInfo.date ? (Number(preLoadData.initInfo.date.split('-')[1]) + '月' + Number(preLoadData.initInfo.date.split('-')[2]) + '日') : dd.getFullYear();
-    
+    console.log($rootScope.theme);
     switch($rootScope.theme)
     {
     case '1':
         $scope.shakeImg = './images/dark_shake_bg.png';
         break;
     case '2':
-        $scope.shakeImg = '2';
+        $scope.shakeImg = './images/blue_shake_m.png';
         break;
     case '3':
-        $scope.shakeImg = '3';
+        $scope.shakeImg = './images/green_shake_bg.png';
         break;
     default:
         $scope.shakeImg = './images/dark_shake_bg.png';

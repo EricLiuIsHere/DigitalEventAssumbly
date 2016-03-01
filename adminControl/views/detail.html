@@ -28,6 +28,7 @@
                 <li role="presentation"><a href="#signup" aria-controls="signup" role="tab"  data-toggle="tab">签到名单</a></li>
                 <li role="presentation"><a href="#register" aria-controls="register" role="tab"  data-toggle="tab">注册名单</a></li>
                 <li role="presentation"><a href="#lucky" aria-controls="lucky" role="tab"  data-toggle="tab">开奖结果</a></li>
+                <li role="presentation"><a href="#others" aria-controls="others" role="tab"  data-toggle="tab">操作及链接</a></li>
                 <button ng-controller="refreshAll" type="button" ng-click="refreshAll()" class="btn btn-default refresh-all" data-dismiss="modal">刷新所有 <span class="glyphicon glyphicon-refresh"></span></button>
 
               </ul>
@@ -267,30 +268,52 @@
                 <div role="tabpanel" class="tab-pane" id="lucky">
                 <br/>
                   <div class="col-md-12">
-                  <p>获奖人数： {{descInfo.users.length}}</p>
+                  <p>&nbsp;</p>
                    <table class="table table-bordered ">
                     <thead>
                       <tr>
-                        <th width="10%">姓名</th>
-                        <th width="15%">学校</th>
-                        <th width="15%">专业</th>
-                        <th width="10%">年级</th>
-                        <th width="15%">邮箱</th>
-                        <th width="10%">手机</th>
+                        <th width="10%">地点</th>
+                        <th width="10%">开始时间</th>
+                        <th width="10%">结束时间</th>
+                        <th width="10%">参与人数</th>
+                        <th width="10%">中奖者</th>
+                        <th width="10%">电话号码</th>
+                        <th width="10%">邮箱</th>
+                        <th width="10%">学校</th>
+                        <th width="10%">专业</th>
                       </tr>
                     </thead>
                     <tbody>
+                    <!-- {{descInfo.users}} -->
                       <tr ng-repeat="x in descInfo.users">
 
-                        <th scope="row">{{x.username}}</th>
+                        <!-- <th scope="row">{{x.username}}</th>
                         <td>{{x.school}}</td>
                         <td>{{x.major}}</td>
                         <td>{{x.grade}}</td>
                         <td>{{x.email}}</td>
-                        <td>{{x.pnum}}</td>
+                        <td>{{x.pnum}}</td> -->
                       </tr>
                     </tbody>
                   </table>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="others" ng-controller="otherInfo">
+                <br/>
+                  <div class="col-md-12 text-center">
+                  <br/><br/>
+                    <div class="col-sm-4">
+                        <p><a href="{{eIP}}:{{ePort}}/campus/admin/QAlist.html#{{eID}}" target="_blank" class="btn btn-default" role="button">大屏幕入口</a></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><a href="{{eIP}}:{{ePort}}/campus/admin/lottery.html" target="_blank" class="btn btn-default" role="button">抽奖界面入口</a></p>
+                    </div>
+                    <div class="col-sm-4">
+                    <form>
+                        <input type="hidden" class="form-control" hidden="hidden" value="">
+                      <button type="submit" class="btn btn-default">下载报告</button>
+                    </form>
+                    </div>
                   </div>
                 </div>
               </div>

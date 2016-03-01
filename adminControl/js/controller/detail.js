@@ -234,3 +234,9 @@ appControllers.controller('adminCommentsController',['$scope','$timeout','$rootS
     }
     
 }]);
+appControllers.controller('otherInfo',['$scope','$timeout','$rootScope','adminService', function($scope,$timeout,$rootScope,adminService){
+    $scope.eIP = eventIP;
+    $scope.ePort = currentPort;
+    var addr = window.location.href.toString();
+    $scope.eID = addr.substring((addr.indexOf("?eventId=")+1), addr.length);
+}]);

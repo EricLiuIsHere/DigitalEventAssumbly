@@ -1,11 +1,12 @@
-/*html{
+html{
 	height:100%;
 }
 body {
+	display: block;
 	height: 100%;
-    background: url(../image/login.jpg) no-repeat 50% 90%;
-    background-color: #6DD2FC; 
-}*/
+}
+/*
+*/
 .loginPattern{
 	position: absolute;
 	left: 0;

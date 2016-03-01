@@ -11,7 +11,7 @@ myApp.directive('a', function() {
     return {
         restrict: 'E',
         link: function(scope, elem, attrs) {
-            if(attrs.href === '#result' || attrs.href === '#basic' || attrs.href === '#topics' || attrs.href === '#comments' || attrs.href === '#admincomments' || attrs.href === '#signup' || attrs.href === '#register' || attrs.href === '#lucky'){
+            if(attrs.href === '#result' || attrs.href === '#basic' || attrs.href === '#topics' || attrs.href === '#comments' || attrs.href === '#admincomments' || attrs.href === '#signup' || attrs.href === '#register' || attrs.href === '#lucky' || attrs.href === '#others'){
                 elem.on('click', function(e){
                     e.preventDefault();
                 });

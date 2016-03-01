@@ -11,25 +11,30 @@ Array.prototype.remove= function(dx){if (isNaN(dx)||dx>this.length){ return fals
 console.log(window.location.hostname)
 var currentHost,
     currentPort,
+    eventPort,
     eventIP;
   if (window.location.hostname == 'localhost' || window.location.hostname == '9.115.24.168') {
     currentHost = 'http://9.115.24.168';
     currentPort= "9080";
+    eventPort= "9080";
     eventIP = 'http://9.115.24.168';
     // host = 'http://9.115.28.96:9080/campus/';
     // host = 'https://9.115.24.168:9443/campus/';
   }else if(window.location.hostname == '159.122.251.251'){
     currentHost = 'http://159.122.251.251';
     currentPort= "9080";
+    eventPort= "9080";
     eventIP = 'http://159.122.251.251';
-    
-  }  else if (window.location.hostname == '170.225.225.31') {
+
+  }  else if (window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com') {
     currentHost = 'http://9.98.15.31';
-    eventIP = 'http://170.225.225.31:81';
+    eventIP = 'http://dss.cn.edst.ibm.com';
     currentPort = '9080';
+    eventPort = '81';
   }else {
     currentHost = 'http://9.115.24.168';
     currentPort = '9080';
+    eventPort= "9080";
     eventIP = 'http://9.115.24.168';
   }
 
@@ -45,7 +50,7 @@ var mkQrcode = function(eventId){
         height : 200
     });
     // eventUrl = 'http://170.225.225.31:81/campus/#/login?checkIn=Y&eventID='+eventId;
-    eventUrl =  eventIP + '/campus/#/login?checkIn=Y&eventId='+eventId;
+    eventUrl =  eventIP + ':' + eventPort + '/campus/#/login?checkIn=Y&eventId='+eventId;
     qrcode.makeCode(eventUrl);
         
 };

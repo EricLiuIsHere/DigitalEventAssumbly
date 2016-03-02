@@ -211,7 +211,7 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
     $scope.successMsg = message;
     $timeout(function() {
       $scope.successMsg = "";
-    }, 5000);
+    }, 3000);
   };
 
   function removeCh() {

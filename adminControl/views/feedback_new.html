@@ -29,7 +29,13 @@
               <input type="text" class="form-control" id="title" maxlength="18" ng-disabled="isFinished" ng-model="feedback.title" placeholder="最多可输入18字符" required/>
             </div>
           </div>
-          <div ng-show="!isFinished">
+<!--           <div class="form-group">
+            <label for="desc" class="col-md-2 control-label" style="font-size:20px">描述</label>
+            <div class="col-md-9">
+              <textarea id="desc" class="form-control" maxlength="500" ng-disabled="isFinished" rows="5" ng-model="feedback.desc" placeholder="最多可输入500字符" required></textarea>
+            </div>
+          </div>
+ -->          <div ng-show="!isFinished">
             <div ng-repeat="ques in feedback.questions track by $index">
               <fieldset>
                 <div class="form-group " ng-init="index_0=$index">

@@ -184,6 +184,7 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
     var data = {
       titleId: $route.current.params.id,
       title: res.questions.title,
+      description: res.questions.description,
       questions: res.questions.questionList
     };
     angular.forEach(data.questions, function(item) {

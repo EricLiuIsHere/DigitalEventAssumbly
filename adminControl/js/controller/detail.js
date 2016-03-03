@@ -20,15 +20,21 @@ Array.prototype.uniqueJson = function(){
    }
    return res;
 }
+
 appControllers.controller('refreshAll',['$scope','$timeout','$rootScope','adminService', function($scope,$timeout,$rootScope,adminService){
+    
     $scope.refreshAll = function(){
+        $rootScope.processMsg = '正在获取数据，请稍候······';
         var addr = window.location.href.toString();
     var id = addr.substring(addr.indexOf("?eventId="), addr.length);
     
         adminService.getEventDetails(id).success(function(data){
             notAdmin(data);
+            $rootScope.processMsg = null;
             $rootScope.descInfo = data.descInfo;
         }).error(function(err){
+            $rootScope.processMsg = null;
+            $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
             console.log('error');
         });
     }
@@ -38,11 +44,15 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
     var addr = window.location.href.toString();
     var id = addr.substring(addr.indexOf("?eventId="), addr.length);
     $scope.displayList = [];
+    $rootScope.processMsg = '正在获取数据，请稍候······';
         adminService.getEventDetails(id).success(function(data){
             notAdmin(data);
+            $rootScope.processMsg = null;
             $rootScope.descInfo = data.descInfo;
             
         }).error(function(err){
+            $rootScope.processMsg = null;
+            $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
             console.log('error');
         });
     $scope.$watch('descInfo',function(){
@@ -149,6 +159,8 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
                 }
                 
             }).error(function(err){
+                $rootScope.processMsg = null;
+                $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
                 console.log('error');
             });
         }
@@ -178,13 +190,17 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
                 }
                 
             }).error(function(err){
+                $rootScope.processMsg = null;
+                $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
                 console.log('error');
             });
         }
     }
     $scope.saveQuestion = function(){
+        $rootScope.processMsg = '正在保存，请稍候······';
         adminService.saveQuestion(encodeURIComponent(JSON.stringify($scope.displayList))).success(function(data){
                 notAdmin(data);
+                $rootScope.processMsg = null;
                 console.log(data);
                 if(data.Message == 'Success'){
                     alert("已投到大屏幕")
@@ -192,6 +208,8 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
                     alert("投到大屏幕失败，请稍后重试")
                 }
             }).error(function(err){
+                $rootScope.processMsg = null;
+                $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
                 console.log('error');
             });
     }
@@ -221,10 +239,14 @@ appControllers.controller('adminCommentsController',['$scope','$timeout','$rootS
         console.log($scope.sumComments)
         var addr = window.location.href.toString();
         var id = addr.substring(addr.indexOf("?eventId="), addr.length);
+        $rootScope.processMsg = '正在保存管理员留言，请稍候······';
         adminService.saveAdminComments(id,encodeURIComponent(JSON.stringify($scope.sumComments))).success(function(data){
             notAdmin(data);
+            $rootScope.processMsg = null;
             console.log(data);
         }).error(function(err){
+            $rootScope.processMsg = null;
+            $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
             console.log('error');
         });
         

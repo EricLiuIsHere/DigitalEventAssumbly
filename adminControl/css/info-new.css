@@ -109,6 +109,24 @@ input[name="selectTemplate"]{
     border-radius: 5px;
     color: white;
 }
+.processBox{
+    width: 100%;
+    display: block;
+    position: fixed;
+    top: 5px;
+    z-index: 10;
+}
+.processMsg{
+    display: block;
+    width: 35%;
+    padding: 10px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 20px;
+    background: lightgreen;
+    border-radius: 5px;
+    color: black;
+}
 .eventAddr{
 	width: 75%;
     display: inline-block;

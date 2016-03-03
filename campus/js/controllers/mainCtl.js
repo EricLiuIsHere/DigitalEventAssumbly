@@ -6,7 +6,6 @@ appControllers.controller('mainCtl', ['$rootScope', '$scope', '$sce', '$timeout'
 		$scope.hash = '';
 		$('.menu-list li:last').css('visibility','hidden');
 	}
-	console.log('TestGitHub');
 	var dd = new Date();
 	$scope.eventTitle = preLoadData.initInfo.college ? (preLoadData.initInfo.college) : 'IBM校园招聘';
 	$scope.eventDate = preLoadData.initInfo.date ? (Number(preLoadData.initInfo.date.split('-')[1]) + '月' + Number(preLoadData.initInfo.date.split('-')[2]) + '日') : dd.getFullYear();

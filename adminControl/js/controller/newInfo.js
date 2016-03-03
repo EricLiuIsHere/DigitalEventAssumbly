@@ -50,26 +50,12 @@ var mkQrcode = function(eventId){
         height : 200
     });
     // eventUrl = 'http://170.225.225.31:81/campus/#/login?checkIn=Y&eventID='+eventId;
-    eventUrl =  eventIP + ':' + eventPort + '/campus/#/login?checkIn=Y&eventId='+eventId;
+    eventUrl =  eventIP  + '/campus/#/login?checkIn=Y&eventId='+eventId;
     qrcode.makeCode(eventUrl);
         
 };
     
-appControllers.controller('errorMsg',['$scope','$timeout','$rootScope', function($scope,$timeout,$rootScope){
-    $scope.showErrorMsg = false;
-    $rootScope.errorMsg = null;
-    $scope.$watch('errorMsg', function () {
-        if($rootScope.errorMsg){
-            $scope.showErrorMsg = true;
-            $timeout(function(){
-                $scope.showErrorMsg = false;
-                $rootScope.errorMsg = null;
-            }, 5000); 
-        }
-        
-        
-    });
-}]);
+
 appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminService','tempSelect', function($scope,$rootScope,$location,adminService,tempSelect){
     // console.log($rootScope)
     var temp='';
@@ -185,8 +171,10 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
     var addr = window.location.href.toString();
     if(addr.indexOf("?eventId")>=0){
         var id = addr.substring(addr.indexOf("?eventId="), addr.length);
+        $rootScope.processMsg = '正在获取数据，请稍候······';
         adminService.getEventById(id).success(function(data){
             notAdmin(data);
+            $rootScope.processMsg = null;
             console.log(data);
             $rootScope.thisEvent = data.event;
             $scope.basic.college = $rootScope.thisEvent.college;
@@ -214,7 +202,8 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
             $('#stepTab a[href="#result"]').attr('data-toggle','tab');
             $rootScope.eventDate = $scope.basic.date;
         }).error(function(err){
-            console.log(encodeURIComponent(JSON.stringify(a)));
+            $rootScope.processMsg = null;
+            $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
         });
     }else{
             $rootScope.thisEvent = null;
@@ -275,9 +264,11 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
         var a = $scope.basic;
         if($scope.isDisabled==undefined||$scope.isDisabled==false){
             $scope.isDisabled = true;
+            $rootScope.processMsg = '正在保存数据，请稍候······';
             adminService.newStepOne(encodeURIComponent(JSON.stringify(a))).success(function(data){
                 $scope.isDisabled = false;
                 notAdmin(data);
+                $rootScope.processMsg = null;
                 console.log(data);
                 $('#stepTab a[href="#topics"]').attr('data-toggle','tab');
                 $('#stepTab a[href="#topics"]').tab('show');
@@ -292,6 +283,8 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
                 
             }).error(function(err){
                 $scope.isDisabled = false;
+                $rootScope.processMsg = null;
+                $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
                 console.log(encodeURIComponent(JSON.stringify(a)));
             });
         }
@@ -506,13 +499,17 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
         $rootScope.eventUrl = eventUrl;
         var qrcode = $('#qrcode img').attr('src');
         console.log(qrcode);
-        var a = {id:$rootScope.EventID,eventUrl:encodeURIComponent($rootScope.eventUrl.toString()),qrcode:qrcode}
+        $rootScope.processMsg = '正在保存数据，请稍候······';
+        var a = {id:$rootScope.EventID,eventUrl:encodeURIComponent($rootScope.eventUrl.toString()),qrcode:qrcode};
     	adminService.saveEventUrl(encodeURIComponent(JSON.stringify(a))).success(function(data){
                 notAdmin(data);
+                $rootScope.processMsg = null;
                 console.log(data);
                 $('#stepTab a[href="#result"]').attr('data-toggle','tab');
                 $('#stepTab a[href="#result"]').tab('show');
             }).error(function(err){
+                $rootScope.processMsg = null;
+                $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
                 console.log(encodeURIComponent(JSON.stringify(a)));
             });
 
@@ -557,9 +554,11 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
         if($scope.topic.speakerFile==null){
             $scope.topic.speakerFile='';
         }
+        $rootScope.processMsg = '正在保存数据，请稍候······';
         adminService.saveTopic(encodeURIComponent(JSON.stringify($scope.topic))).success(function(data){
             $scope.saveDisabled = false;
             notAdmin(data);
+            $rootScope.processMsg = null;
             if(data.Message =='Error'){
                 $rootScope.errorMsg = '保存失败，请刷新页面重新尝试。'
                 return;
@@ -597,6 +596,8 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
             $scope.isHide = true;
             console.log(data)
         }).error(function(err){
+            $rootScope.processMsg = null;
+            $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
             console.log(err);
         });
 

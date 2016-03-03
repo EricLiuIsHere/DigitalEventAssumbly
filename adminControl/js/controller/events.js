@@ -16,19 +16,7 @@ appControllers.controller('eventsBody',['$scope','$rootScope','$timeout','adminS
             $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
 	        console.log(err);
 	    });
-	
-    $rootScope.errorMsg = null;
-    $scope.$watch('errorMsg', function () {
-        if($rootScope.errorMsg){
-            $scope.showErrorMsg = true;
-            $timeout(function(){
-                $scope.showErrorMsg = false;
-                $rootScope.errorMsg = null;
-            }, 5000); 
-        }
-        
-        
-    });
+
 	$scope.signOut = function(){
 		adminService.signOut().success(function(data){
 		window.location.href = '#/login';

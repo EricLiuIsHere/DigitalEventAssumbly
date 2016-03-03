@@ -203,9 +203,12 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
                 $rootScope.processMsg = null;
                 console.log(data);
                 if(data.Message == 'Success'){
-                    alert("已投到大屏幕")
+                    $rootScope.processMsg = '成功投到大屏';
+                    $timeout(function(){
+                        $rootScope.processMsg = null;
+                    }, 2000); 
                 }else{
-                    alert("投到大屏幕失败，请稍后重试")
+                    $rootScope.errorMsg = "投到大屏幕失败，请稍后重试";
                 }
             }).error(function(err){
                 $rootScope.processMsg = null;
@@ -243,7 +246,10 @@ appControllers.controller('adminCommentsController',['$scope','$timeout','$rootS
         adminService.saveAdminComments(id,encodeURIComponent(JSON.stringify($scope.sumComments))).success(function(data){
             notAdmin(data);
             $rootScope.processMsg = null;
-            console.log(data);
+            $rootScope.processMsg = '成功投到大屏';
+            $timeout(function(){
+                $rootScope.processMsg = null;
+            }, 2000); 
         }).error(function(err){
             $rootScope.processMsg = null;
             $rootScope.errorMsg = '服务器链接异常，请稍后再试。'

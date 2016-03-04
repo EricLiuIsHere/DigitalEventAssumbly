@@ -30,8 +30,12 @@ appControllers.controller('refreshAll',['$scope','$timeout','$rootScope','adminS
     
         adminService.getEventDetails(id).success(function(data){
             notAdmin(data);
-            $rootScope.processMsg = null;
+            
             $rootScope.descInfo = data.descInfo;
+            $rootScope.processMsg = '成功投到大屏';
+            $timeout(function(){
+                $rootScope.processMsg = null;
+            }, 2000);
         }).error(function(err){
             $rootScope.processMsg = null;
             $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
@@ -43,13 +47,14 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
     console.log('id');
     var addr = window.location.href.toString();
     var id = addr.substring(addr.indexOf("?eventId="), addr.length);
-    $scope.displayList = [];
+    
     $rootScope.processMsg = '正在获取数据，请稍候······';
         adminService.getEventDetails(id).success(function(data){
             notAdmin(data);
             $rootScope.processMsg = null;
             $rootScope.descInfo = data.descInfo;
-            
+            $scope.displayList = [];
+            $scope.selectedList = [];
         }).error(function(err){
             $rootScope.processMsg = null;
             $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
@@ -108,7 +113,7 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
         }
     }
     // console.log($scope.selectAll)
-    $scope.selectedList = [];
+    
     $scope.addToList = function(a, b){
         if(b){
             $scope.selectedList.push({"cid":a});
@@ -219,25 +224,63 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
 }]);
 
 appControllers.controller('adminCommentsController',['$scope','$timeout','$rootScope','adminService', function($scope,$timeout,$rootScope,adminService){
+    $scope.$watch('descInfo.adminComments',function(){
+        if($rootScope.descInfo.adminComments){
+            console.log($rootScope.descInfo.adminComments)
+            var checkbox=false,comment,From;
+            for(var i=0;i< $rootScope.descInfo.adminComments.length;i++){
+                if($rootScope.descInfo.adminComments[i].choosen == 1){
+                    checkbox = true;
+                }else{
+                    checkbox = false;
+                }
+                if($rootScope.descInfo.adminComments[i].comments&&$rootScope.descInfo.adminComments[i].comments!=''){
+                    comment = $rootScope.descInfo.adminComments[i].comments;
+                }else{
+                    comment = '';
+                }
+                if($rootScope.descInfo.adminComments[i].userName&&$rootScope.descInfo.adminComments[i].userName!=''){
+                    From = $rootScope.descInfo.adminComments[i].userName;
+                }else{
+                    From = '';
+                }
+                console.log($scope.adminComments)
+                if(!$scope.adminComments){
+                    $scope.adminComments = []
+                    $scope.adminComments[0] = {comment: comment, from: From, checkbox: checkbox};
+                }else{
+                    $scope.adminComments[i] = {comment: comment, from: From, checkbox: checkbox};
+                }
+                // $scope.adminComments.push({comment: comment, from: From, checkbox: checkbox});
+                console.log($scope.adminComments)
+            }
+        }
+    })
+
+    // console.log()
     $scope.saveAdminComments = function(){
-        console.log($scope.adminComments)
+        
         $scope.sumComments = [];
         $scope.thisChecked = '0';
         for(i in $scope.adminComments){
-            if($scope.adminComments[i].comment){
-            }else{
-                $scope.adminComments[i].comment = '';
+            console.log($scope.adminComments[i])
+            if(!(i == 'remove' || i  == 'uniqueJson')){
+                if($scope.adminComments[i].comment){
+                }else{
+                    $scope.adminComments[i].comment = '';
+                }
+                if($scope.adminComments[i].from){
+                }else{
+                    $scope.adminComments[i].from = '';
+                }
+                if($scope.adminComments[i].checkbox){
+                    $scope.thisChecked = '1';
+                }else{
+                    $scope.thisChecked = '0';
+                }
+                $scope.sumComments.push({"comments":$scope.adminComments[i].comment,"from":$scope.adminComments[i].from,"checked":$scope.thisChecked})
             }
-            if($scope.adminComments[i].from){
-            }else{
-                $scope.adminComments[i].from = '';
-            }
-            if($scope.adminComments[i].checkbox){
-                $scope.thisChecked = '1';
-            }else{
-                $scope.thisChecked = '0';
-            }
-            $scope.sumComments.push({"comments":$scope.adminComments[i].comment,"from":$scope.adminComments[i].from,"checked":$scope.thisChecked})
+            
         }
         console.log($scope.sumComments)
         var addr = window.location.href.toString();

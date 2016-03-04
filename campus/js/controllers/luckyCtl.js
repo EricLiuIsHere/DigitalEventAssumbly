@@ -2,7 +2,6 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
     var dd = new Date();
     var preLoadData = HRService.preLoad.getPreDate();
     $scope.eventDate = preLoadData.initInfo.date ? (Number(preLoadData.initInfo.date.split('-')[1]) + '月' + Number(preLoadData.initInfo.date.split('-')[2]) + '日') : dd.getFullYear();
-    console.log($rootScope.theme);
     switch($rootScope.theme)
     {
     case '1':
@@ -47,8 +46,8 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
         myShakeEvent.start();
 
         // register a shake event
-        window.addEventListener('shake', shakeEventDidOccur, false);     
-        //shakeEventDidOccur();          
+        //window.addEventListener('shake', shakeEventDidOccur, false);     
+        shakeEventDidOccur();          
     }   
 
     
@@ -66,7 +65,7 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
             shakePostStart = new Date().getTime();
 
             var host;            
-            if(window.location.hostname == '170.225.225.31'){
+            if(window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com'){
                 host = 'http://170.225.225.31:9080/campus/Shaking';
             } else {
                 host = 'http://9.115.24.168:9080/campus/Shaking';
@@ -75,7 +74,7 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
             $.ajax({
                 url: host, 
                 type: "get",
-                data: {pnum: tel,uid: uid},  
+                data: {pnum: tel, uid: uid},
                 dataType: "jsonp",
                 timeout: 1000,
             })

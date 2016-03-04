@@ -73,7 +73,7 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
                         $scope.selectedList.push({"cid":$rootScope.descInfo.comments[i].cid});
                     }else{
                         for(x in $scope.selectedList){
-                            if($scope.selectedList[x].cid!=null &&  $rootScope.descInfo.comments[i].cid!=null &&  $scope.selectedList[x].cid == $rootScope.descInfo.comments[i].cid){
+                            if($scope.selectedList[x] && $scope.selectedList[x].cid!=null &&  $rootScope.descInfo.comments[i].cid!=null &&  $scope.selectedList[x].cid == $rootScope.descInfo.comments[i].cid){
                                 $scope.selectedList.remove(x);
                             }
                         }
@@ -116,6 +116,7 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
     // console.log($scope.selectAll)
     
     $scope.addToList = function(a, b){
+        console.log($scope.selectedList)
         if(b){
             $scope.selectedList.push({"cid":a});
             for(i in $rootScope.descInfo.comments){
@@ -131,18 +132,19 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
                 }
             }
         }else{
-            for(i in $scope.selectedList){
-                if($scope.selectedList[i].cid!=null && $scope.selectedList[i].cid == a){
-                    $scope.selectedList.remove(i);
+            for(n in $scope.selectedList){
+                console.log(n)
+                if($scope.selectedList[n] && $scope.selectedList[n].cid!=null && $scope.selectedList[n].cid == a){
+                    $scope.selectedList.remove(n);
                 }
             }
             for(x in $scope.displayList){
-                if($scope.displayList[x].cid != null && $scope.displayList[x].cid == a){
+                if($scope.displayList[x] && $scope.displayList[x].cid != null && $scope.displayList[x].cid == a){
                     $scope.displayList[x].choosen = '0';
                 }
             }
             for(w in $rootScope.descInfo.comments){
-                if($rootScope.descInfo.comments[w].cid != null && $rootScope.descInfo.comments[w].cid == a){
+                if($rootScope.descInfo.comments[w] && $rootScope.descInfo.comments[w].cid != null && $rootScope.descInfo.comments[w].cid == a){
                     console.log($rootScope.descInfo.comments[w].cid == a)
                     $rootScope.descInfo.comments[w].choosen = '0';
                 }
@@ -155,6 +157,7 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
     $scope.removeComments = function(){
         console.log($scope.selectedList)
         if(confirm("确定删除这些留言？")){
+            
             adminService.deleteComment(encodeURIComponent(JSON.stringify($scope.selectedList))).success(function(data){
                 notAdmin(data);
                 if(data.Message == 'Success'){

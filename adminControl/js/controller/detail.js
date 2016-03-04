@@ -32,7 +32,7 @@ appControllers.controller('refreshAll',['$scope','$timeout','$rootScope','adminS
             notAdmin(data);
             
             $rootScope.descInfo = data.descInfo;
-            $rootScope.processMsg = '成功投到大屏';
+            $rootScope.processMsg = '成功';
             $timeout(function(){
                 $rootScope.processMsg = null;
             }, 2000);
@@ -77,6 +77,7 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
                                 $scope.selectedList.remove(x);
                             }
                         }
+
                     }
 
                     if($rootScope.descInfo.comments[i].choosen!=null && $rootScope.descInfo.comments[i].choosen == '1'){
@@ -118,6 +119,12 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
         if(b){
             $scope.selectedList.push({"cid":a});
             for(i in $rootScope.descInfo.comments){
+                for(m in $scope.displayList){
+                    if($scope.displayList[m].cid != null && $scope.displayList[m].cid == a){
+                        $scope.displayList[m].choosen = '1';
+                        return;
+                    }
+                }
                 if($rootScope.descInfo.comments[i].cid != null && $rootScope.descInfo.comments[i].cid == a){
                     $rootScope.descInfo.comments[i].choosen = '1';
                     $scope.displayList.push($rootScope.descInfo.comments[i]);
@@ -131,7 +138,7 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
             }
             for(x in $scope.displayList){
                 if($scope.displayList[x].cid != null && $scope.displayList[x].cid == a){
-                    $scope.displayList.remove(x)
+                    $scope.displayList[x].choosen = '0';
                 }
             }
             for(w in $rootScope.descInfo.comments){
@@ -225,6 +232,7 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
 
 appControllers.controller('adminCommentsController',['$scope','$timeout','$rootScope','adminService', function($scope,$timeout,$rootScope,adminService){
     $scope.$watch('descInfo.adminComments',function(){
+        $scope.adminComments = null;
         if($rootScope.descInfo.adminComments){
             console.log($rootScope.descInfo.adminComments)
             var checkbox=false,comment,From;

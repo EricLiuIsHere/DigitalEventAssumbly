@@ -2,7 +2,7 @@ appServices.factory('HRService', function($http, $q){
 	var host,
 		userInfo,
 		preData;
-	if(window.location.hostname == '170.225.225.31'){
+	if(window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com'){
 	    host = 'http://170.225.225.31:9080';
 	} else {
 	    host = 'http://9.115.24.168:9080';

@@ -65,25 +65,6 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
     }]
   };
   $scope.feedbackId = 0;
-
-  function removeCh() {
-    if ($scope.feedback.title && $scope.feedback.title.search(/[\s\#\%\&]+/) != -1) {
-      $scope.feedback.title = $scope.feedback.title.replace(/[\s\#\%\&]+/g, '');
-    };
-    if ($scope.feedback.description && $scope.feedback.description.search(/[\s\#\%\&]+/) != -1) {
-      $scope.feedback.description = $scope.feedback.description.replace(/[\s\#\%\&]+/g, '');
-    };
-    angular.forEach($scope.feedback.questions, function(item) {
-      if (item.question && item.question.search(/[\s\#\%\&]+/) != -1) {
-        item.question = item.question.replace(/[\s\#\%\&]+/g, '');
-      };
-      for (var i = 0; i < item.options.length; i++) {
-        if (item.options[i] && item.options[i].search(/[\s\#\%\&]+/) != -1) {
-          item.options[i] = item.options[i].replace(/[\s\#\%\&]+/g, '');
-        };
-      };
-    });
-  };
   $scope.addQuestion = function() {
     $scope.feedback.questions.push({
       type: '1',
@@ -143,7 +124,6 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
   };
 
   $scope.save = function() {
-    removeCh();
     var str = angular.toJson($scope.feedback);
     var data = angular.fromJson(str);
     angular.forEach(data.questions, function(item) {
@@ -160,7 +140,7 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
     });
     var josnStr = angular.toJson(data);
     console.log("AddFeedback", data);
-    adminService.addFeedback(josnStr).success(function(res) {
+    adminService.addFeedback(encodeURIComponent(josnStr)).success(function(res) {
       console.log("AddFeedback-res", res);
       if (res.Message == "Error") {
         showWarning("增加反馈表失败，请重试！");
@@ -219,22 +199,6 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
     }, 3000);
   };
 
-  function removeCh() {
-    if ($scope.feedback.title && $scope.feedback.title.search(/[\s\#\%\&]+/) != -1) {
-      $scope.feedback.title = $scope.feedback.title.replace(/[\s\#\%\&]+/g, '');
-    };
-    angular.forEach($scope.feedback.questions, function(item) {
-      if (item.question && item.question.search(/[\s\#\%\&]+/) != -1) {
-        item.question = item.question.replace(/[\s\#\%\&]+/g, '');
-      };
-      for (var i = 0; i < item.options.length; i++) {
-        if (item.options[i] && item.options[i].search(/[\s\#\%\&]+/) != -1) {
-          item.options[i] = item.options[i].replace(/[\s\#\%\&]+/g, '');
-        };
-      };
-    });
-  };
-
   $scope.addQuestion = function() {
     $scope.feedback.questions.push({
       type: '1',
@@ -281,7 +245,6 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
 
   $scope.save = function() {
     if (confirm("将删除所有提交的调查问卷数据，确定要修改吗？")) {
-      removeCh();
       var str = angular.toJson($scope.feedback);
       var data = angular.fromJson(str);
       angular.forEach(data.questions, function(item) {
@@ -298,7 +261,7 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
       });
       var josnStr = angular.toJson(data);
       console.log("SaveFeedback", data);
-      adminService.saveFeedback(josnStr).success(function(res) {
+      adminService.saveFeedback(encodeURIComponent(josnStr)).success(function(res) {
         console.log("SaveFeedback-res", res);
         if (res.Message == "Error") {
           showWarning("修改反馈表失败，请重试！");
@@ -377,14 +340,6 @@ appControllers.controller('FeedbackUserController', ['$scope', '$location', '$ro
     });
   };
 
-  function removeCh() {
-    angular.forEach($scope.feedback.questions, function(item) {
-      if (item.answer && item.answer.search(/[\s\#\%\&]+/) != -1) {
-        item.answer = item.answer.replace(/[\s\#\%\&]+/g, '');
-      };
-    });
-  };
-
   adminService.getOneFeedback($routeParams.id).success(function(res) {
     console.log('getOneFeedback', res);
     $scope.feedback = {
@@ -406,7 +361,6 @@ appControllers.controller('FeedbackUserController', ['$scope', '$location', '$ro
   });
 
   $scope.save = function() {
-    removeCh();
     $scope.isFinished = true;
     for (var i = 0; i < $scope.feedback.questions.length; i++) {
       if (!$scope.feedback.questions[i].answer) {
@@ -433,7 +387,7 @@ appControllers.controller('FeedbackUserController', ['$scope', '$location', '$ro
       var str = angular.toJson(ans);
       console.log('saveUserQuestion', str);
       $('#saveBtn').button('loading');
-      adminService.saveUserQuestion(str).success(function(res) {
+      adminService.saveUserQuestion(encodeURIComponent(str)).success(function(res) {
         $('#saveBtn').button('reset');
         if (res.Message == "Success") {
           $scope.status = 2;

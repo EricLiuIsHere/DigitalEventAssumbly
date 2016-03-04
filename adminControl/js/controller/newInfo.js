@@ -294,16 +294,13 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
             });
         }
 
-
+        console.log($rootScope);
         if(!$rootScope){
-            $rootScope.topics = new Array();
             $rootScope.isHide = false;
         }else if(!$rootScope.thisEvent){
             console.log($rootScope.thisEvent)
-            $rootScope.topics = new Array();
             $rootScope.isHide = false;
         }else if(!$rootScope.thisEvent.speakers){
-            $rootScope.topics = new Array();
             $rootScope.isHide = false;
         }else{
             $rootScope.isHide = true;
@@ -592,8 +589,12 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                     $scope.topic.speakerFile = currentHost + '/CampusFileUpload/'+ $scope.topic.speakerFile;
                 }
             }
+            console.log(flag)
             if(flag){
                 $scope.topic.id=data.TopicID;
+                if(!$rootScope.topics){
+                    $rootScope.topics = [];
+                }
                 $rootScope.topics.push($scope.topic);
             }
             $scope.topic = null;

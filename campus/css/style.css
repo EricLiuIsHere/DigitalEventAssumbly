@@ -1928,29 +1928,31 @@ body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, p, form, input, button {ma
 	min-height: 30%;
 	margin-top: -25%;
 	padding-top: 35px;
-	background-color: #f2f0f1;
+	background-color: #fff;
 	border-radius: 3px; 
 	border: none;
+	opacity: 0.8;
+
 
 }
 .overlay .headbar {
 	position: relative;
 	height: 33px;
 	margin-top: -35px;
-	box-sizing: border-box;
+	/*box-sizing: border-box;
 	background-color: #7ab6d9;
 	border-top-right-radius: 3px; 
 	border-top-left-radius:  3px; 
 	border: none;
 	border-top: 1px solid #afd3e8;
 	border-bottom: 2px solid #fff;
-    box-shadow: 0 1px 1px #afd3e8;
+    box-shadow: 0 1px 1px #afd3e8;*/
 
-	background-image: -webkit-linear-gradient(to bottom, #afd3e8 0%, #77b2d4 50%, #71a8c8 50%, #50778d 100%);
+	/*background-image: -webkit-linear-gradient(to bottom, #afd3e8 0%, #77b2d4 50%, #71a8c8 50%, #50778d 100%);
 	background-image: linear-gradient(to bottom, #afd3e8 0%, #77b2d4 50%, #71a8c8 50%, #50778d 100%);
 	background-position: center top;
 	background-repeat: no-repeat;
-	background-size: 100% auto ;
+	background-size: 100% auto ;*/
 	text-align: center;
 }
 
@@ -2044,11 +2046,11 @@ body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, p, form, input, button {ma
     width: 30px;
     box-sizing: border-box;
     border-radius: 3px;
-    border: 1px solid #38ABBF;
-    color: #f4f4f4;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: rgba(255,255,255, .1);
+    /*border: 1px solid #38ABBF;*/
+    color: #4caf50 ;
+    font-size: 24px;
+    /*font-weight: bold;*/
+    /*background-color: rgba(255,255,255, .1);*/
     /*vertical-align: middle;
     line-height: 22px;*/
 
@@ -2077,16 +2079,16 @@ body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, p, form, input, button {ma
 	box-sizing: border-box;
 	width: 100%;
 	height: 100%;
-	padding: 20px 8px 8px 8px;
-	border: 1px solid #d8d8d8;
-	border-radius: 2px;
+	padding: 8px;
+	/*border: 1px solid #d8d8d8;*/
+	/*border-radius: 2px;*/
 }
 
 .overlay .face{
-	color: #6ea4c3;
+	color: #333;
     font-size: 26px;
     text-align: center;
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
 
     display: -webkit-box;
     display: -ms-flexbox;
@@ -2131,6 +2133,7 @@ body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, p, form, input, button {ma
 	color: #313131;
     font-size: 18px;
     text-align: center;
+    padding-bottom: 20px;
 }
 
 .overlay .button-container {
@@ -2139,12 +2142,12 @@ body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, p, form, input, button {ma
 
 .overlay .btn {
 	display: inline-block;
-	width: 46%;
-	background-image: -webkit-linear-gradient(to bottom, #afd3e8 0%, #77b2d4 50%, #71a8c8 50%, #50778d 100%);
-	background-image: linear-gradient(to bottom, #afd3e8 0%, #77b2d4 50%, #71a8c8 50%, #50778d 100%);
-	background-color: #77b2d4;	
-	border-radius: 2px;
-	border: 1px solid #38ABBF;
+	width: 80%;
+	/*background-image: -webkit-linear-gradient(to bottom, #afd3e8 0%, #77b2d4 50%, #71a8c8 50%, #50778d 100%);*/
+	/*background-image: linear-gradient(to bottom, #afd3e8 0%, #77b2d4 50%, #71a8c8 50%, #50778d 100%);*/
+	background-color: #4caf50;	
+	border-radius: 20px;
+	/*border: 1px solid #38ABBF;*/
 	color: #fff;
 	text-align: center;
 }
@@ -2198,5 +2201,19 @@ body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, p, form, input, button {ma
 	position: absolute;
 	left: 1em;
 	top: .55em;
+}
+
+.blue-shake .overlay .btn {
+	background-color: #3e72b3 ;	
+}
+.blue-shake .overlay .headbar .icon-close:after {
+    color: #3e72b3 ;
+}
+
+.dark-shake .overlay .btn {
+	background-color: #04ad9a  ;	
+}
+.dark-shake .overlay .headbar .icon-close:after {
+    color: #04ad9a  ;
 }
 /*overlay end*/

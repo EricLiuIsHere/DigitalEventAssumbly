@@ -59,7 +59,7 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
         playSound();
         playAnimation();        
         var tel = HRService.Auth.getUser().tel;
-
+	 var uid = HRService.Auth.getUser().uid;
         var condition1 = !posted; //是否已提交
         var condition2 = shakePostStart < 0; //是否正在提交
         if (condition2) {
@@ -75,7 +75,7 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
             $.ajax({
                 url: host, 
                 type: "get",
-                data: {pnum: tel},  
+                data: {pnum: tel,uid: uid},  
                 dataType: "jsonp",
                 timeout: 1000,
             })

@@ -12,11 +12,11 @@
     <p class="navbar-text navbar-right">管理员您好</p>
   </div>
 </nav>
-<div class="errorBox" ng-show="errorMsg">
-  <p class="errorMsg">{{errorMsg}}</p>
+<div class="errorFeedbackBox" ng-show="errorMsg">
+  <p class="errorFeedbackMsg">{{errorMsg}}</p>
 </div>
-<div class="successBox" ng-show="successMsg">
-  <p class="successMsg">{{successMsg}}</p>
+<div class="successFeedbackBox" ng-show="successMsg">
+  <p class="successFeedbackMsg">{{successMsg}}</p>
 </div>
 <section>
   <div class="container">
@@ -27,6 +27,12 @@
             <label for="title" class="col-md-2 control-label" style="font-size:20px">标题</label>
             <div class="col-md-9 input-group-lg">
               <input type="text" class="form-control" id="title" maxlength="18" ng-model="feedback.title" placeholder="最多可输入18字符" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="desc" class="col-md-2 control-label" style="font-size:20px">描述</label>
+            <div class="col-md-9">
+              <textarea id="desc" class="form-control" maxlength="500" rows="5" ng-model="feedback.description" placeholder="最多可输入500字符" required></textarea>
             </div>
           </div>
           <div>
@@ -89,7 +95,7 @@
       <div class="col-md-4 quesRight">
         <div class="form-container text-center">
           <div id='qrcode'></div>
-          <div >
+          <div>
             <br/>
             <button type="button" class="btn btn-default" ng-click="downloadQR()">下载二维码</button>
             <br/>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="HRadmin">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>精彩问答</title>
+    <link href="http://cdn.staticfile.org/twitter-bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="http://gcghrcampus.b0.upaiyun.com/static/css/QAlist.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.staticfile.org/html5shiv/r29/html5.js"></script>
+    <script src="http://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-controller="QAController">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+          <img src="http://gcghrcampus.b0.upaiyun.com/static/images/QAbg.jpg" />
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-12">
+          <p>
+            <ul class="message"  ng-repeat="item in questions">
+              <li class="userinfor" ng-bind="item.userName+' '+item.pnum"></li>
+              <li class="question"><strong ng-bind="'Q'+($index+1)+': '"></strong><span ng-bind="item.comments"></span></li>
+            </ul>
+          </p>
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+    <div class="bodybg"></div>
+    <script src="http://cdn.staticfile.org/jquery/2.1.0/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/angular.js/1.3.0/angular.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://cdn.staticfile.org/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="../js/admin/QAlist.js"></script>
+  </body>    
+</html>

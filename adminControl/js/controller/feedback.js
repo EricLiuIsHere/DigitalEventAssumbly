@@ -56,6 +56,7 @@ appControllers.controller('FeedbackListController', ['$scope', '$timeout', '$rou
 appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '$timeout', 'FileSaver', 'adminService', function($scope, $location, $timeout, FileSaver, adminService) {
   $scope.feedback = {
     title: '',
+    description: '',
     questions: [{
       type: '1',
       question: '',
@@ -68,6 +69,9 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
   function removeCh() {
     if ($scope.feedback.title && $scope.feedback.title.search(/[\s\#\%\&]+/) != -1) {
       $scope.feedback.title = $scope.feedback.title.replace(/[\s\#\%\&]+/g, '');
+    };
+    if ($scope.feedback.description && $scope.feedback.description.search(/[\s\#\%\&]+/) != -1) {
+      $scope.feedback.description = $scope.feedback.description.replace(/[\s\#\%\&]+/g, '');
     };
     angular.forEach($scope.feedback.questions, function(item) {
       if (item.question && item.question.search(/[\s\#\%\&]+/) != -1) {
@@ -180,6 +184,7 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
     var data = {
       titleId: $route.current.params.id,
       title: res.questions.title,
+      description: res.questions.description,
       questions: res.questions.questionList
     };
     angular.forEach(data.questions, function(item) {
@@ -211,7 +216,7 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
     $scope.successMsg = message;
     $timeout(function() {
       $scope.successMsg = "";
-    }, 5000);
+    }, 3000);
   };
 
   function removeCh() {
@@ -312,11 +317,13 @@ appControllers.controller('FeedbackDataItemController', ['$scope', '$location', 
   $scope.question = {
     id: $route.current.params.id,
     title: '',
+    description: '',
     list: []
   };
   adminService.getOneFeedback($route.current.params.id).success(function(res) {
     console.log('GetOneFeedback res=', res);
     $scope.question.title = res.questions.title;
+    $scope.question.description = res.questions.description;
     $scope.question.list = res.questions.questionList;
   }).error(function(res) {
     console.error('[GetOneFeedback] res=', res);

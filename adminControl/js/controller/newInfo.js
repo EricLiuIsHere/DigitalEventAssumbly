@@ -261,11 +261,16 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
             $rootScope.errorMsg = '请选择模板';
             return;
         }
+        console.log($rootScope.EventID)
+        if($rootScope.EventID){
+            $scope.basic.eventId = $rootScope.EventID;
+        }
         var a = $scope.basic;
         if($scope.isDisabled==undefined||$scope.isDisabled==false){
             $scope.isDisabled = true;
             $rootScope.processMsg = '正在保存数据，请稍候······';
             adminService.newStepOne(encodeURIComponent(JSON.stringify(a))).success(function(data){
+                a = null;
                 $scope.isDisabled = false;
                 notAdmin(data);
                 $rootScope.processMsg = null;

@@ -273,13 +273,12 @@
                 <br/>
                   <div class="col-md-12">
                   <p>&nbsp;</p>
-                  <!-- {{descInfo}} -->
                    <table class="table table-bordered ">
                     <thead>
                       <tr>
                         <th width="10%">地点</th>
-                        <th width="10%">开始时间</th>
-                        <th width="10%">结束时间</th>
+                        <th width="12%">开始时间</th>
+                        <th width="12%">结束时间</th>
                         <th width="10%">参与人数</th>
                         <th width="10%">中奖者</th>
                         <th width="10%">电话号码</th>
@@ -291,14 +290,18 @@
                     </thead>
                     <tbody>
                     <!-- {{descInfo.users}} -->
-                      <tr ng-repeat="x in descInfo.users">
+                      <tr ng-repeat="x in descInfo.lotteryList">
 
-                        <!-- <th scope="row">{{x.username}}</th>
-                        <td>{{x.school}}</td>
-                        <td>{{x.major}}</td>
-                        <td>{{x.grade}}</td>
-                        <td>{{x.email}}</td>
-                        <td>{{x.pnum}}</td> -->
+                        <td width="10%">{{x.location}}</td>
+                        <td width="10%">{{x.startTs}}</td>
+                        <td width="10%">{{x.endTs}}</td>
+                        <td width="10%">{{x.number}}</td>
+                        <td width="10%">{{x.username}}</td>
+                        <td width="10%">{{x.pnum}}</td>
+                        <td width="10%">{{x.email}}</td>
+                        <td width="10%">{{x.school}}</td>
+                        <td width="10%">{{x.grade}}</td>
+                        <td width="10%">{{x.major}}</td>
                       </tr>
                     </tbody>
                   </table>

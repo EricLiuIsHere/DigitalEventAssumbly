@@ -500,9 +500,8 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
 
         $rootScope.eventUrl = eventUrl;
         var qrcode = $('#qrcode img').attr('src');
-        console.log(qrcode);
         $rootScope.processMsg = '正在保存数据，请稍候······';
-        var a = {id:$rootScope.EventID,eventUrl:encodeURIComponent($rootScope.eventUrl.toString()),qrcode:qrcode};
+        var a = {id:$rootScope.EventID,eventUrl:encodeURIComponent($rootScope.eventUrl.toString()),qrcode:''};
     	adminService.saveEventUrl(encodeURIComponent(JSON.stringify(a))).success(function(data){
                 notAdmin(data);
                 $rootScope.processMsg = null;

@@ -11,6 +11,7 @@ var feedbackApp = angular.module('feedbackApp', ['appControllers', 'appServices'
 appControllers.controller('FeedbackListController', ['$scope', '$timeout', '$route', 'adminService', function($scope, $timeout, $route, adminService) {
   $scope.feedbacks = [];
   adminService.getAllFeedbacks().success(function(res) {
+    notAdmin(res);
     console.log('getAllFeedbacks', res);
     $scope.feedbacks = res.titles;
   }).error(function(res) {
@@ -141,6 +142,7 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
     var josnStr = angular.toJson(data);
     console.log("AddFeedback", data);
     adminService.addFeedback(encodeURIComponent(josnStr)).success(function(res) {
+      notAdmin(res);
       console.log("AddFeedback-res", res);
       if (res.Message == "Error") {
         showWarning("增加反馈表失败，请重试！");
@@ -160,6 +162,7 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
 appControllers.controller('FeedbackEditItemController', ['$scope', '$location', '$timeout', '$route', 'FileSaver', 'adminService', function($scope, $location, $timeout, $route, FileSaver, adminService) {
   $scope.feedback = {};
   adminService.getOneFeedback($route.current.params.id).success(function(res) {
+    notAdmin(res);
     console.log('GetOneFeedback', res);
     var data = {
       titleId: $route.current.params.id,
@@ -262,6 +265,7 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
       var josnStr = angular.toJson(data);
       console.log("SaveFeedback", data);
       adminService.saveFeedback(encodeURIComponent(josnStr)).success(function(res) {
+        notAdmin(res);
         console.log("SaveFeedback-res", res);
         if (res.Message == "Error") {
           showWarning("修改反馈表失败，请重试！");
@@ -284,6 +288,7 @@ appControllers.controller('FeedbackDataItemController', ['$scope', '$location', 
     list: []
   };
   adminService.getOneFeedback($route.current.params.id).success(function(res) {
+    notAdmin(res);
     console.log('GetOneFeedback res=', res);
     $scope.question.title = res.questions.title;
     $scope.question.description = res.questions.description;
@@ -294,6 +299,7 @@ appControllers.controller('FeedbackDataItemController', ['$scope', '$location', 
 
   $scope.answer = [];
   adminService.getUserAnswer($route.current.params.id).success(function(res) {
+    notAdmin(res);
     console.log('getUserAnswer res=', res);
     $scope.answer = res.answers;
     $scope.tableParams = new NgTableParams({

@@ -16,6 +16,7 @@
     </nav>
 
     <div ng-controller="errorMsg" class="errorBox" ng-show="showErrorMsg"><p class="errorMsg">{{errorMsg}}</p></div>
+    <div ng-controller="processMsg" class="processBox" ng-show="showProcessMsg"><p class="processMsg">{{processMsg}}</p></div>
     <section>
       <div class="container">
         <div class="row">
@@ -59,6 +60,7 @@
                           <th width="10%">操作</th>
                         </tr>
                       </thead>
+
                       <tbody ng-model="test">
                         <tr ng-repeat="x in thisComments">
                           <th scope="row">
@@ -91,115 +93,115 @@
                   <form class="form-horizontal" ng-model="adminComments">
                     <div class="form-group" id="adminContentQuestion0">
                       <div class="col-sm-1">
-                          <div class="checkbox"><label><input ng-model="adminComments.first.checkbox" type="checkbox"></label></div>
+                          <div class="checkbox"><label><input ng-model="adminComments[0].checkbox" type="checkbox"></label></div>
                       </div>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control"  ng-model="adminComments.first.from"  placeholder="来自xxx">
+                          <input type="text" class="form-control"  ng-model="adminComments[0].from"  placeholder="来自xxx">
                       </div>
                       <div class="col-sm-8">
-                          <input type="text" class="form-control" ng-model="adminComments.first.comment" placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                          <input type="text" class="form-control" ng-model="adminComments[0].comment" placeholder="留言内容(可以输入140字)" maxlength="140"> 
                       </div>     
                     </div>
 
                     <div class="form-group" id="adminContentQuestion1">
                       <div class="col-sm-1">
-                          <div class="checkbox"><label><input ng-model="adminComments.second.checkbox"  type="checkbox"></label></div>
+                          <div class="checkbox"><label><input ng-model="adminComments[1].checkbox"  type="checkbox"></label></div>
                       </div>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control"  ng-model="adminComments.second.from"     placeholder="来自xxx">
+                          <input type="text" class="form-control"  ng-model="adminComments[1].from"     placeholder="来自xxx">
                       </div>
                       <div class="col-sm-8">
-                          <input type="text" class="form-control" ng-model="adminComments.second.comment"   placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                          <input type="text" class="form-control" ng-model="adminComments[1].comment"   placeholder="留言内容(可以输入140字)" maxlength="140"> 
                       </div>     
                     </div>
                     <div class="form-group" id="adminContentQuestion2">
                       <div class="col-sm-1">
-                          <div class="checkbox"><label><input ng-model="adminComments.third.checkbox" type="checkbox"></label></div>
+                          <div class="checkbox"><label><input ng-model="adminComments[2].checkbox" type="checkbox"></label></div>
                       </div>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control"  ng-model="adminComments.third.from"     placeholder="来自xxx">
+                          <input type="text" class="form-control"  ng-model="adminComments[2].from"     placeholder="来自xxx">
                       </div>
                       <div class="col-sm-8">
-                          <input type="text" class="form-control" ng-model="adminComments.third.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                          <input type="text" class="form-control" ng-model="adminComments[2].comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
                       </div>     
                     </div>
 
                     <div class="form-group" id="adminContentQuestion3">
                       <div class="col-sm-1">
-                          <div class="checkbox"><label><input ng-model="adminComments.fourth.checkbox" type="checkbox"></label></div>
+                          <div class="checkbox"><label><input ng-model="adminComments[3].checkbox" type="checkbox"></label></div>
                       </div>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control"  ng-model="adminComments.fourth.from"     placeholder="来自xxx">
+                          <input type="text" class="form-control"  ng-model="adminComments[3].from"     placeholder="来自xxx">
                       </div>
                       <div class="col-sm-8">
-                          <input type="text" class="form-control" ng-model="adminComments.fourth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                          <input type="text" class="form-control" ng-model="adminComments[3].comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
                       </div>     
                     </div>
                     <div class="form-group" id="adminContentQuestion4">
                       <div class="col-sm-1">
-                          <div class="checkbox"><label><input ng-model="adminComments.fifth.checkbox" type="checkbox"></label></div>
+                          <div class="checkbox"><label><input ng-model="adminComments[4].checkbox" type="checkbox"></label></div>
                       </div>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control"  ng-model="adminComments.fifth.from"     placeholder="来自xxx">
+                          <input type="text" class="form-control"  ng-model="adminComments[4].from"     placeholder="来自xxx">
                       </div>
                       <div class="col-sm-8">
-                          <input type="text" class="form-control" ng-model="adminComments.fifth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                          <input type="text" class="form-control" ng-model="adminComments[4].comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
                       </div>     
                     </div>
                     <div class="form-group" id="adminContentQuestion5">
                       <div class="col-sm-1">
-                          <div class="checkbox"><label><input ng-model="adminComments.sixth.checkbox" type="checkbox"></label></div>
+                          <div class="checkbox"><label><input ng-model="adminComments[5].checkbox" type="checkbox"></label></div>
                       </div>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control"  ng-model="adminComments.sixth.from"     placeholder="来自xxx">
+                          <input type="text" class="form-control"  ng-model="adminComments[5].from"     placeholder="来自xxx">
                       </div>
                       <div class="col-sm-8">
-                          <input type="text" class="form-control" ng-model="adminComments.sixth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                          <input type="text" class="form-control" ng-model="adminComments[5].comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
                       </div>     
                     </div>
                     <div class="form-group" id="adminContentQuestion6">
                       <div class="col-sm-1">
-                          <div class="checkbox"><label><input ng-model="adminComments.seventh.checkbox" type="checkbox"></label></div>
+                          <div class="checkbox"><label><input ng-model="adminComments[6].checkbox" type="checkbox"></label></div>
                       </div>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control"  ng-model="adminComments.seventh.from"     placeholder="来自xxx">
+                          <input type="text" class="form-control"  ng-model="adminComments[6].from"     placeholder="来自xxx">
                       </div>
                       <div class="col-sm-8">
-                          <input type="text" class="form-control" ng-model="adminComments.seventh.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                          <input type="text" class="form-control" ng-model="adminComments[6].comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
                       </div>     
                     </div>
                     
                     <div class="form-group" id="adminContentQuestion7">
                       <div class="col-sm-1">
-                          <div class="checkbox"><label><input ng-model="adminComments.eighth.checkbox" type="checkbox"></label></div>
+                          <div class="checkbox"><label><input ng-model="adminComments[7].checkbox" type="checkbox"></label></div>
                       </div>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control"  ng-model="adminComments.eighth.from"     placeholder="来自xxx">
+                          <input type="text" class="form-control"  ng-model="adminComments[7].from"     placeholder="来自xxx">
                       </div>
                       <div class="col-sm-8">
-                          <input type="text" class="form-control" ng-model="adminComments.eighth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                          <input type="text" class="form-control" ng-model="adminComments[7].comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
                       </div>     
                     </div>
                     <div class="form-group" id="adminContentQuestion8">
                       <div class="col-sm-1">
-                          <div class="checkbox"><label><input ng-model="adminComments.nineth.checkbox" type="checkbox"></label></div>
+                          <div class="checkbox"><label><input ng-model="adminComments[8].checkbox" type="checkbox"></label></div>
                       </div>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control"  ng-model="adminComments.nineth.from"     placeholder="来自xxx">
+                          <input type="text" class="form-control"  ng-model="adminComments[8].from"     placeholder="来自xxx">
                       </div>
                       <div class="col-sm-8">
-                          <input type="text" class="form-control" ng-model="adminComments.nineth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                          <input type="text" class="form-control" ng-model="adminComments[8].comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
                       </div>     
                     </div>
                     <div class="form-group" id="adminContentQuestion9">
                       <div class="col-sm-1">
-                          <div class="checkbox"><label><input ng-model="adminComments.tenth.checkbox" type="checkbox"></label></div>
+                          <div class="checkbox"><label><input ng-model="adminComments[9].checkbox" type="checkbox"></label></div>
                       </div>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control"  ng-model="adminComments.tenth.from"     placeholder="来自xxx">
+                          <input type="text" class="form-control"  ng-model="adminComments[9].from"     placeholder="来自xxx">
                       </div>
                       <div class="col-sm-8">
-                          <input type="text" class="form-control" ng-model="adminComments.tenth.comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
+                          <input type="text" class="form-control" ng-model="adminComments[9].comment"  placeholder="留言内容(可以输入140字)" maxlength="140"> 
                       </div>     
                     </div>
 
@@ -248,6 +250,7 @@
                         <th width="15%">邮箱</th>
                         <th width="10%">手机</th>
                         <th width="15%">时间</th>
+                        <th width="10%">是否签到</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -260,6 +263,7 @@
                         <td>{{x.email}}</td>
                         <td>{{x.pnum}}</td>
                         <td>{{x.createdTS.substring(0,10)}}</td>
+                        <td>{{x.checked == 1?"是":"否"}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -273,26 +277,31 @@
                     <thead>
                       <tr>
                         <th width="10%">地点</th>
-                        <th width="10%">开始时间</th>
-                        <th width="10%">结束时间</th>
+                        <th width="12%">开始时间</th>
+                        <th width="12%">结束时间</th>
                         <th width="10%">参与人数</th>
                         <th width="10%">中奖者</th>
                         <th width="10%">电话号码</th>
                         <th width="10%">邮箱</th>
                         <th width="10%">学校</th>
+                        <th width="10%">年级</th>
                         <th width="10%">专业</th>
                       </tr>
                     </thead>
                     <tbody>
                     <!-- {{descInfo.users}} -->
-                      <tr ng-repeat="x in descInfo.users">
+                      <tr ng-repeat="x in descInfo.lotteryList">
 
-                        <!-- <th scope="row">{{x.username}}</th>
-                        <td>{{x.school}}</td>
-                        <td>{{x.major}}</td>
-                        <td>{{x.grade}}</td>
-                        <td>{{x.email}}</td>
-                        <td>{{x.pnum}}</td> -->
+                        <td width="10%">{{x.location}}</td>
+                        <td width="10%">{{x.startTs}}</td>
+                        <td width="10%">{{x.endTs}}</td>
+                        <td width="10%">{{x.number}}</td>
+                        <td width="10%">{{x.username}}</td>
+                        <td width="10%">{{x.pnum}}</td>
+                        <td width="10%">{{x.email}}</td>
+                        <td width="10%">{{x.school}}</td>
+                        <td width="10%">{{x.grade}}</td>
+                        <td width="10%">{{x.major}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -303,10 +312,10 @@
                   <div class="col-md-12 text-center">
                   <br/><br/>
                     <div class="col-sm-4">
-                        <p><a href="{{eIP}}:{{ePort}}/campus/admin/QAlist.html#{{eID}}" target="_blank" class="btn btn-default" role="button">大屏幕入口</a></p>
+                        <p><a href="{{eIP}}/campus/admin/QAlist.html#{{eID}}" target="_blank" class="btn btn-default" role="button">大屏幕入口</a></p>
                     </div>
                     <div class="col-sm-4">
-                        <p><a href="{{eIP}}:{{ePort}}/campus/admin/lottery.html" target="_blank" class="btn btn-default" role="button">抽奖界面入口</a></p>
+                        <p><a href="{{eIP}}/campus/admin/lottery.html#{{eID}}" target="_blank" class="btn btn-default" role="button">抽奖界面入口</a></p>
                     </div>
                     <div class="col-sm-4">
                     <p><a href="{{eIP}}:{{ePort}}/campus/Download?{{eID}}" target="_blank" class="btn btn-default" role="button">下载报告</a></p>

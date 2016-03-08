@@ -50,7 +50,7 @@ var mkQrcode = function(eventId){
         height : 200
     });
     // eventUrl = 'http://170.225.225.31:81/campus/#/login?checkIn=Y&eventID='+eventId;
-    eventUrl =  eventIP  + '/campus/#/login?checkIn=Y&eventId='+eventId;
+    eventUrl =  eventIP  + ':' eventPort+'/campus/#/login?checkIn=Y&eventId='+eventId;
     qrcode.makeCode(eventUrl);
         
 };

@@ -27,7 +27,7 @@ var currentHost,
     eventIP = 'http://159.122.251.251';
 
   }  else if (window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com') {
-    currentHost = 'http://9.98.15.31';
+    currentHost = 'http://dss.cn.edst.ibm.com';
     eventIP = 'http://dss.cn.edst.ibm.com';
     currentPort = '9080';
     eventPort = '81';
@@ -576,16 +576,16 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                     $rootScope.topics[i].endTime = $scope.topic.endTime;
                 }
             }
-            if($scope.topic.speakerImg && $scope.topic.speakerImg.indexOf(currentHost + '/CampusFileUpload/')<0){
+            if($scope.topic.speakerImg && $scope.topic.speakerImg.indexOf(currentHost + ':'+eventPort+'/CampusFileUpload/')<0){
                 // $scope.topic.speakerImg = 'http://9.115.24.168/CampusFileUpload/'+ $scope.topic.speakerImg;
                 if(!($scope.topic.speakerImg==null)){
-                    $scope.topic.speakerImg = currentHost + '/CampusFileUpload/'+ $scope.topic.speakerImg;
+                    $scope.topic.speakerImg = currentHost + ':'+eventPort+'/CampusFileUpload/'+ $scope.topic.speakerImg;
                 }
             }
             if($scope.topic.speakerFile && $scope.topic.speakerFile.indexOf(currentHost + '/CampusFileUpload/')<0){
                 // $scope.topic.speakerFile = 'http://9.115.24.168/CampusFileUpload/'+ $scope.topic.speakerFile;
                 if(!($scope.topic.speakerFile==null)){
-                    $scope.topic.speakerFile = currentHost + '/CampusFileUpload/'+ $scope.topic.speakerFile;
+                    $scope.topic.speakerFile = currentHost + ':'+eventPort+'/CampusFileUpload/'+ $scope.topic.speakerFile;
                 }
             }
             console.log(flag)

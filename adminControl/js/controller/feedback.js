@@ -11,6 +11,7 @@ var feedbackApp = angular.module('feedbackApp', ['appControllers', 'appServices'
 appControllers.controller('FeedbackListController', ['$scope', '$timeout', '$route', 'adminService', function($scope, $timeout, $route, adminService) {
   $scope.feedbacks = [];
   adminService.getAllFeedbacks().success(function(res) {
+    notAdmin(res);
     console.log('getAllFeedbacks', res);
     $scope.feedbacks = res.titles;
   }).error(function(res) {
@@ -56,6 +57,7 @@ appControllers.controller('FeedbackListController', ['$scope', '$timeout', '$rou
 appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '$timeout', 'FileSaver', 'adminService', function($scope, $location, $timeout, FileSaver, adminService) {
   $scope.feedback = {
     title: '',
+    description: '',
     questions: [{
       type: '1',
       question: '',
@@ -64,22 +66,6 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
     }]
   };
   $scope.feedbackId = 0;
-
-  function removeCh() {
-    if ($scope.feedback.title && $scope.feedback.title.search(/[\s\#\%\&]+/) != -1) {
-      $scope.feedback.title = $scope.feedback.title.replace(/[\s\#\%\&]+/g, '');
-    };
-    angular.forEach($scope.feedback.questions, function(item) {
-      if (item.question && item.question.search(/[\s\#\%\&]+/) != -1) {
-        item.question = item.question.replace(/[\s\#\%\&]+/g, '');
-      };
-      for (var i = 0; i < item.options.length; i++) {
-        if (item.options[i] && item.options[i].search(/[\s\#\%\&]+/) != -1) {
-          item.options[i] = item.options[i].replace(/[\s\#\%\&]+/g, '');
-        };
-      };
-    });
-  };
   $scope.addQuestion = function() {
     $scope.feedback.questions.push({
       type: '1',
@@ -139,7 +125,6 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
   };
 
   $scope.save = function() {
-    removeCh();
     var str = angular.toJson($scope.feedback);
     var data = angular.fromJson(str);
     angular.forEach(data.questions, function(item) {
@@ -156,7 +141,8 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
     });
     var josnStr = angular.toJson(data);
     console.log("AddFeedback", data);
-    adminService.addFeedback(josnStr).success(function(res) {
+    adminService.addFeedback(encodeURIComponent(josnStr)).success(function(res) {
+      notAdmin(res);
       console.log("AddFeedback-res", res);
       if (res.Message == "Error") {
         showWarning("增加反馈表失败，请重试！");
@@ -176,10 +162,12 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
 appControllers.controller('FeedbackEditItemController', ['$scope', '$location', '$timeout', '$route', 'FileSaver', 'adminService', function($scope, $location, $timeout, $route, FileSaver, adminService) {
   $scope.feedback = {};
   adminService.getOneFeedback($route.current.params.id).success(function(res) {
+    notAdmin(res);
     console.log('GetOneFeedback', res);
     var data = {
       titleId: $route.current.params.id,
       title: res.questions.title,
+      description: res.questions.description,
       questions: res.questions.questionList
     };
     angular.forEach(data.questions, function(item) {
@@ -211,23 +199,7 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
     $scope.successMsg = message;
     $timeout(function() {
       $scope.successMsg = "";
-    }, 5000);
-  };
-
-  function removeCh() {
-    if ($scope.feedback.title && $scope.feedback.title.search(/[\s\#\%\&]+/) != -1) {
-      $scope.feedback.title = $scope.feedback.title.replace(/[\s\#\%\&]+/g, '');
-    };
-    angular.forEach($scope.feedback.questions, function(item) {
-      if (item.question && item.question.search(/[\s\#\%\&]+/) != -1) {
-        item.question = item.question.replace(/[\s\#\%\&]+/g, '');
-      };
-      for (var i = 0; i < item.options.length; i++) {
-        if (item.options[i] && item.options[i].search(/[\s\#\%\&]+/) != -1) {
-          item.options[i] = item.options[i].replace(/[\s\#\%\&]+/g, '');
-        };
-      };
-    });
+    }, 3000);
   };
 
   $scope.addQuestion = function() {
@@ -276,7 +248,6 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
 
   $scope.save = function() {
     if (confirm("将删除所有提交的调查问卷数据，确定要修改吗？")) {
-      removeCh();
       var str = angular.toJson($scope.feedback);
       var data = angular.fromJson(str);
       angular.forEach(data.questions, function(item) {
@@ -293,7 +264,8 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
       });
       var josnStr = angular.toJson(data);
       console.log("SaveFeedback", data);
-      adminService.saveFeedback(josnStr).success(function(res) {
+      adminService.saveFeedback(encodeURIComponent(josnStr)).success(function(res) {
+        notAdmin(res);
         console.log("SaveFeedback-res", res);
         if (res.Message == "Error") {
           showWarning("修改反馈表失败，请重试！");
@@ -312,11 +284,14 @@ appControllers.controller('FeedbackDataItemController', ['$scope', '$location', 
   $scope.question = {
     id: $route.current.params.id,
     title: '',
+    description: '',
     list: []
   };
   adminService.getOneFeedback($route.current.params.id).success(function(res) {
+    notAdmin(res);
     console.log('GetOneFeedback res=', res);
     $scope.question.title = res.questions.title;
+    $scope.question.description = res.questions.description;
     $scope.question.list = res.questions.questionList;
   }).error(function(res) {
     console.error('[GetOneFeedback] res=', res);
@@ -324,6 +299,7 @@ appControllers.controller('FeedbackDataItemController', ['$scope', '$location', 
 
   $scope.answer = [];
   adminService.getUserAnswer($route.current.params.id).success(function(res) {
+    notAdmin(res);
     console.log('getUserAnswer res=', res);
     $scope.answer = res.answers;
     $scope.tableParams = new NgTableParams({
@@ -370,14 +346,6 @@ appControllers.controller('FeedbackUserController', ['$scope', '$location', '$ro
     });
   };
 
-  function removeCh() {
-    angular.forEach($scope.feedback.questions, function(item) {
-      if (item.answer && item.answer.search(/[\s\#\%\&]+/) != -1) {
-        item.answer = item.answer.replace(/[\s\#\%\&]+/g, '');
-      };
-    });
-  };
-
   adminService.getOneFeedback($routeParams.id).success(function(res) {
     console.log('getOneFeedback', res);
     $scope.feedback = {
@@ -399,7 +367,6 @@ appControllers.controller('FeedbackUserController', ['$scope', '$location', '$ro
   });
 
   $scope.save = function() {
-    removeCh();
     $scope.isFinished = true;
     for (var i = 0; i < $scope.feedback.questions.length; i++) {
       if (!$scope.feedback.questions[i].answer) {
@@ -426,7 +393,7 @@ appControllers.controller('FeedbackUserController', ['$scope', '$location', '$ro
       var str = angular.toJson(ans);
       console.log('saveUserQuestion', str);
       $('#saveBtn').button('loading');
-      adminService.saveUserQuestion(str).success(function(res) {
+      adminService.saveUserQuestion(encodeURIComponent(str)).success(function(res) {
         $('#saveBtn').button('reset');
         if (res.Message == "Success") {
           $scope.status = 2;

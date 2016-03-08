@@ -1,13 +1,26 @@
 appControllers.controller('errorMsg',['$scope','$timeout','$rootScope', function($scope,$timeout,$rootScope){
-    $scope.showErrorMsg = false;
+    $rootScope.showErrorMsg = false;
     $rootScope.errorMsg = null;
-    $scope.$watch('errorMsg', function () {
+    $rootScope.$watch('errorMsg', function () {
         if($rootScope.errorMsg){
             $rootScope.showErrorMsg = true;
             $timeout(function(){
                 $rootScope.showErrorMsg = false;
                 $rootScope.errorMsg = null;
             }, 5000); 
+        }
+        
+        
+    });
+}]);
+appControllers.controller('processMsg',['$scope','$timeout','$rootScope', function($scope,$timeout,$rootScope){
+    $rootScope.showProcessMsg = false;
+    $rootScope.processMsg = null;
+    $rootScope.$watch('processMsg', function () {
+        if($rootScope.processMsg){
+            $rootScope.showProcessMsg = true;
+        }else{
+        	$rootScope.showProcessMsg = false;
         }
         
         

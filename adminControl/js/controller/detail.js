@@ -157,7 +157,7 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
     $scope.removeComments = function(){
         console.log($scope.selectedList)
         if(confirm("确定删除这些留言？")){
-            
+
             adminService.deleteComment(encodeURIComponent(JSON.stringify($scope.selectedList))).success(function(data){
                 notAdmin(data);
                 if(data.Message == 'Success'){
@@ -186,13 +186,17 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
         console.log(id);
         var tempA = [];
         if(confirm("确定删除此条留言？")){
+            $rootScope.processMsg = '正在操作······';
+            $timeout(function(){
+                $rootScope.processMsg = null;
+            }, 2000);
             tempA.push({"cid":id});
             console.log(tempA);
             adminService.deleteComment(encodeURIComponent(JSON.stringify(tempA))).success(function(data){
                 notAdmin(data);
                 if(data.Message == 'Success'){
                   for(i in $scope.thisComments){
-                        if($scope.thisComments[i].cid!=null && $scope.thisComments[i].cid == id){
+                        if($scope.thisComments[i] && $scope.thisComments[i].cid!=null && $scope.thisComments[i].cid == id){
                            console.log($scope.thisComments[i])
                            $scope.thisComments.remove(i); 
                         }
@@ -203,7 +207,10 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
                         }
                     }
                 }
-                
+                $rootScope.processMsg = '删除成功';
+                $timeout(function(){
+                    $rootScope.processMsg = null;
+                }, 2000);
             }).error(function(err){
                 $rootScope.processMsg = null;
                 $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
@@ -318,7 +325,9 @@ appControllers.controller('adminCommentsController',['$scope','$timeout','$rootS
 }]);
 appControllers.controller('otherInfo',['$scope','$timeout','$rootScope','adminService', function($scope,$timeout,$rootScope,adminService){
     $scope.eIP = eventIP;
-    $scope.ePort = currentPort;
+    $scope.ePort = eventPort;
     var addr = window.location.href.toString();
+    $scope.cIP = currentHost;
+    $scope.cPort = currentPort;
     $scope.eID = addr.substring((addr.indexOf("?eventId=")+1), addr.length);
 }]);

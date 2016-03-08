@@ -26,7 +26,7 @@ appServices.factory('adminService', function($http, $q) {
   }else if(window.location.hostname == '159.122.251.251'){
     host = 'http://159.122.251.251:9080/campus/'
   } else if (window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com') {
-    host = 'http://9.98.15.31:9080/campus/';
+    host = 'http://dss.cn.edst.ibm.com:9080/campus/';
   }else {
     host = 'http://9.115.24.168:9080/campus/';
   }

@@ -1,11 +1,11 @@
-/*var SaveAs5 = function(imgURL){ 
-    var oPop = window.open(imgURL,"","width=1, height=1, top=5000, left=5000"); 
-    for(; oPop.document.readyState != "complete"; ) 
-    { 
-    if (oPop.document.readyState == "complete")break; 
-    } 
-    oPop.document.execCommand("SaveAs"); 
-    oPop.close(); 
+/*var SaveAs5 = function(imgURL){
+    var oPop = window.open(imgURL,"","width=1, height=1, top=5000, left=5000");
+    for(; oPop.document.readyState != "complete"; )
+    {
+    if (oPop.document.readyState == "complete")break;
+    }
+    oPop.document.execCommand("SaveAs");
+    oPop.close();
     }*/
 Array.prototype.remove= function(dx){if (isNaN(dx)||dx>this.length){ return false;}for (var i=0,n=0;i<this .length;i++){if( this[i]!=this [dx]){this[n++]= this[i]}}this.length-= 1};
 console.log(window.location.hostname)
@@ -50,11 +50,11 @@ var mkQrcode = function(eventId){
         height : 200
     });
     // eventUrl = 'http://170.225.225.31:81/campus/#/login?checkIn=Y&eventID='+eventId;
-    eventUrl =  eventIP  + ':' eventPort+'/campus/#/login?checkIn=Y&eventId='+eventId;
+    eventUrl =  eventIP  + ':' + eventPort+'/campus/#/login?checkIn=Y&eventId='+eventId;
     qrcode.makeCode(eventUrl);
-        
+
 };
-    
+
 
 appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminService','tempSelect', function($scope,$rootScope,$location,adminService,tempSelect){
     // console.log($rootScope)
@@ -75,7 +75,7 @@ appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminSe
       // console.log(e.relatedTarget) // previous active tab
       // e.target.innerHTML;
       // console.log(e.target.innerHTML);
-      
+
       // if(e.target.innerHTML=="基本信息"){
 
       //   $rootScope.simImg = 'image/template_big_'+$rootScope.templateId+'.png';
@@ -108,7 +108,7 @@ appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminSe
         }else{
 
         }
-        
+
     });
     $scope.$watch('templateId', function(){
         if($scope.tabName==""||$scope.tabName=="基本信息"){
@@ -131,9 +131,9 @@ appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminSe
         }
     });
 
-/*    $scope.$watch('tabName', function(newValue, oldValue) {  
-        console.log(newValue+ '===' +oldValue);  
-        
+/*    $scope.$watch('tabName', function(newValue, oldValue) {
+        console.log(newValue+ '===' +oldValue);
+
 
     });
 
@@ -153,7 +153,7 @@ appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminSe
             return false;
         }
     }*/
-    
+
 }]);
 
 appControllers.controller('specificEdit',['$scope','$location','adminService', function($scope,$location,adminService){
@@ -167,7 +167,7 @@ appControllers.controller('specificEdit',['$scope','$location','adminService', f
     };
 }]);
 appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$location','tempSelect',function($scope,$rootScope,adminService,$location,tempSelect){
-    
+
     var addr = window.location.href.toString();
     if(addr.indexOf("?eventId")>=0){
         var id = addr.substring(addr.indexOf("?eventId="), addr.length);
@@ -210,7 +210,7 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
             $rootScope.topics = null;
             $rootScope.EventID = null;
     }
-    
+
 
     $scope.basic = {template:'1',shakeFlag: true};
     $rootScope.templateId = '1';
@@ -281,11 +281,11 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
                 if(!$rootScope.eventDate){
                     $rootScope.eventDate = a.date;
                 }
-                
+
                 if(!document.getElementById('qrcode').hasChildNodes()){
                     mkQrcode(data.EventID);
                 }
-                
+
             }).error(function(err){
                 $scope.isDisabled = false;
                 $rootScope.processMsg = null;
@@ -343,14 +343,14 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
         }else{
             $('[data-link-field="dtp_input2"]').datetimepicker('setEndDate',  $rootScope.eventDate+' '+$scope.basic.endtime);
         }
-        
+
         $('[data-link-field="dtp_input2"]').datetimepicker('setStartDate',  $rootScope.eventDate);
         if(!$scope.basic||!$scope.basic.starttime){
             $('[data-link-field="dtp_input3"]').datetimepicker('setStartDate', $rootScope.eventDate+' 23:59');
         }else{
             $('[data-link-field="dtp_input3"]').datetimepicker('setStartDate', $rootScope.eventDate+' '+$scope.basic.starttime);
         }
-        
+
         $('[data-link-field="dtp_input3"]').datetimepicker('setEndDate', $rootScope.eventDate+' 23:59');
 
     });
@@ -366,16 +366,16 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
         }else{
             $('[data-link-field="dtp_input4"]').datetimepicker('setEndDate',  $rootScope.eventDate+' '+$scope.topic.endTime);
         }
-        
+
         $('[data-link-field="dtp_input4"]').datetimepicker('setStartDate',  $rootScope.eventDate);
         if(!$scope.topic||!$scope.topic.startTime){
             $('[data-link-field="dtp_input5"]').datetimepicker('setStartDate', $rootScope.eventDate+' 0:00');
         }else{
             $('[data-link-field="dtp_input5"]').datetimepicker('setStartDate', $rootScope.eventDate+' '+$scope.topic.startTime);
         }
-        
+
         $('[data-link-field="dtp_input5"]').datetimepicker('setEndDate', $rootScope.eventDate+' 23:59');
-    }); 
+    });
     $scope.displayExistImg = false;
     $scope.displayExistFile = false;
 	$scope.uploadImages = function(file, errFiles){
@@ -407,7 +407,7 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                     "File-Type" : "img"
                 },
                 data: {'filename':$scope.f,'type':$scope.f.type,'file': $scope.f},
-                
+
             });
             $scope.topic.speakerImg = $scope.topic.timestamp + '_img/'+ $scope.f.name;
             $scope.f.upload.then(function (response) {
@@ -415,12 +415,12 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                     $scope.f.result = response.data;
 
                 });
-                
+
             }, function (response) {
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
             }, function (evt) {
-                $scope.f.progress = Math.min(100, parseInt(100.0 * 
+                $scope.f.progress = Math.min(100, parseInt(100.0 *
                                          evt.loaded / evt.total));
             });
         }
@@ -462,7 +462,7 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
         //         if (response.status > 0)
         //             $scope.errorMsg = response.status + ': ' + response.data;
         //     }, function (evt) {
-        //         file.progress = Math.min(100, parseInt(100.0 * 
+        //         file.progress = Math.min(100, parseInt(100.0 *
         //                                  evt.loaded / evt.total));
         //     });
         // });
@@ -477,25 +477,25 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                     "File-Type" : "file"
                 },
                 data: {'filename':file.name,'type':file.type,'file':file},
-                
+
             });
             $scope.topic.speakerFile = $scope.topic.timestamp + '_file/'+ file.name;
             file.upload.then(function(response) {
                 $timeout(function() {
                     file.result = response.data;
                 });
-                
+
             }, function (response) {
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
             }, function (evt) {
-                file.progress = Math.min(100, parseInt(100.0 * 
+                file.progress = Math.min(100, parseInt(100.0 *
                                          evt.loaded / evt.total));
             });
         });
         }
     };
-    
+
 	$scope.proceed = function(){
 
         $rootScope.eventUrl = eventUrl;
@@ -606,7 +606,7 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
             console.log(err);
         });
 
-    	
+
     }
     $scope.addItem = function(){
         $scope.files = null;
@@ -647,14 +647,14 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                 }
             }).error(function(err){
                 console.log(err);
-            }); 
+            });
         }
-        
+
     }
 }]);
 appControllers.controller('finalStep',['$scope','$rootScope','$timeout','FileSaver','Blob', function($scope, $rootScope,$timeout,FileSaver,Blob){
-    
-    
+
+
 
     $scope.downloadQR = function(){
         // DownLoadReportIMG(document.getElementById('qrcode').children[1].src)
@@ -668,7 +668,7 @@ appControllers.controller('finalStep',['$scope','$rootScope','$timeout','FileSav
         $scope.doneMessage = '复制成功';
         $timeout(function(){
             $scope.doneMessage = '';
-        }, 1000); 
+        }, 1000);
     }
 
 }]);

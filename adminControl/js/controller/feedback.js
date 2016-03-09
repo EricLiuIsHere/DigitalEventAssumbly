@@ -346,7 +346,7 @@ appControllers.controller('FeedbackUserController', ['$scope', '$location', '$ro
     });
   };
 
-  adminService.getOneFeedback($routeParams.id).success(function(res) {
+  adminService.getOneFeedbackByUser($routeParams.id).success(function(res) {
     console.log('getOneFeedback', res);
     $scope.feedback = {
       title: res.questions.title,

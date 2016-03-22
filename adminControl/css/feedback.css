@@ -230,4 +230,6 @@ table.dataTable th.dataTh p {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
 }

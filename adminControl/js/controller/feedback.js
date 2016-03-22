@@ -4,7 +4,7 @@ var mkQrcode_F = function(feedbackId) {
     width: 200,
     height: 200
   });
-  var feedbackUrl = eventIP  + ':' + eventPort + '/adminControl/#/feedback/user/' + feedbackId;
+  var feedbackUrl = eventIP + '/adminControl/#/feedback/user/' + feedbackId;
   qrcode.makeCode(feedbackUrl);
 };
 var feedbackApp = angular.module('feedbackApp', ['appControllers', 'appServices']);
@@ -150,7 +150,7 @@ appControllers.controller('FeedbackNewItemController', ['$scope', '$location', '
         showSuccess("增加反馈表成功！");
         $scope.isFinished = true;
         $scope.feedbackId = res.Message;
-        $scope.url = eventIP  + ':' + eventPort + '/adminControl/#/feedback/user/' + $scope.feedbackId;
+        $scope.url = eventIP + '/adminControl/#/feedback/user/' + $scope.feedbackId;
         mkQrcode_F($scope.feedbackId);
       };
     }).error(function(res) {
@@ -182,7 +182,7 @@ appControllers.controller('FeedbackEditItemController', ['$scope', '$location', 
     });
     $scope.feedback = data;
     console.log("EditItem", $scope.feedback);
-    $scope.url = eventIP  + ':' + eventPort + '/adminControl/#/feedback/user/' + $route.current.params.id;
+    $scope.url = eventIP + '/adminControl/#/feedback/user/' + $route.current.params.id;
     mkQrcode_F($route.current.params.id);
   }).error(function(res) {
     console.error('EditItem', res);

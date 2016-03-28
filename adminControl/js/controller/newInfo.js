@@ -28,7 +28,7 @@ var currentHost,
 
   }  else if (window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com') {
     currentHost = 'http://dss.cn.edst.ibm.com';
-    eventIP = 'http://dss.cn.edst.ibm.com';
+    eventIP = 'http://dss.cn.edst.ibm.com:81';
     currentPort = '9080';
     eventPort = '81';
   }else {

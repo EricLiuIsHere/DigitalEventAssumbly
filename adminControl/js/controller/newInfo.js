@@ -1,30 +1,40 @@
-/*var SaveAs5 = function(imgURL){ 
-    var oPop = window.open(imgURL,"","width=1, height=1, top=5000, left=5000"); 
-    for(; oPop.document.readyState != "complete"; ) 
-    { 
-    if (oPop.document.readyState == "complete")break; 
-    } 
-    oPop.document.execCommand("SaveAs"); 
-    oPop.close(); 
+/*var SaveAs5 = function(imgURL){
+    var oPop = window.open(imgURL,"","width=1, height=1, top=5000, left=5000");
+    for(; oPop.document.readyState != "complete"; )
+    {
+    if (oPop.document.readyState == "complete")break;
+    }
+    oPop.document.execCommand("SaveAs");
+    oPop.close();
     }*/
 Array.prototype.remove= function(dx){if (isNaN(dx)||dx>this.length){ return false;}for (var i=0,n=0;i<this .length;i++){if( this[i]!=this [dx]){this[n++]= this[i]}}this.length-= 1};
 console.log(window.location.hostname)
 var currentHost,
     currentPort,
+    eventPort,
     eventIP;
   if (window.location.hostname == 'localhost' || window.location.hostname == '9.115.24.168') {
     currentHost = 'http://9.115.24.168';
-    currentPort= "9081";
+    currentPort= "9080";
+    eventPort= "9080";
     eventIP = 'http://9.115.24.168';
     // host = 'http://9.115.28.96:9080/campus/';
     // host = 'https://9.115.24.168:9443/campus/';
-  } else if (window.location.hostname == '170.225.225.31') {
-    currentHost = 'http://9.98.15.31';
-    eventIP = 'http://170.225.225.31:81';
+  }else if(window.location.hostname == '159.122.251.251'){
+    currentHost = 'http://159.122.251.251';
+    currentPort= "9080";
+    eventPort= "9080";
+    eventIP = 'http://159.122.251.251';
+
+  }  else if (window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com') {
+    currentHost = 'http://dss.cn.edst.ibm.com';
+    eventIP = 'http://dss.cn.edst.ibm.com:81';
     currentPort = '9080';
+    eventPort = '81';
   }else {
     currentHost = 'http://9.115.24.168';
-    currentPort = '9081';
+    currentPort = '9080';
+    eventPort= "9080";
     eventIP = 'http://9.115.24.168';
   }
 
@@ -40,26 +50,12 @@ var mkQrcode = function(eventId){
         height : 200
     });
     // eventUrl = 'http://170.225.225.31:81/campus/#/login?checkIn=Y&eventID='+eventId;
-    eventUrl =  eventIP + '/campus/#/login?checkIn=Y&eventId='+eventId;
+    eventUrl =  eventIP  + ':' + eventPort+'/campus/#/login?checkIn=Y&eventId='+eventId;
     qrcode.makeCode(eventUrl);
-        
+
 };
-    
-appControllers.controller('errorMsg',['$scope','$timeout','$rootScope', function($scope,$timeout,$rootScope){
-    $scope.showErrorMsg = false;
-    $rootScope.errorMsg = null;
-    $scope.$watch('errorMsg', function () {
-        if($rootScope.errorMsg){
-            $scope.showErrorMsg = true;
-            $timeout(function(){
-                $scope.showErrorMsg = false;
-                $rootScope.errorMsg = null;
-            }, 5000); 
-        }
-        
-        
-    });
-}]);
+
+
 appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminService','tempSelect', function($scope,$rootScope,$location,adminService,tempSelect){
     // console.log($rootScope)
     var temp='';
@@ -79,7 +75,7 @@ appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminSe
       // console.log(e.relatedTarget) // previous active tab
       // e.target.innerHTML;
       // console.log(e.target.innerHTML);
-      
+
       // if(e.target.innerHTML=="基本信息"){
 
       //   $rootScope.simImg = 'image/template_big_'+$rootScope.templateId+'.png';
@@ -112,7 +108,7 @@ appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminSe
         }else{
 
         }
-        
+
     });
     $scope.$watch('templateId', function(){
         if($scope.tabName==""||$scope.tabName=="基本信息"){
@@ -135,9 +131,9 @@ appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminSe
         }
     });
 
-/*    $scope.$watch('tabName', function(newValue, oldValue) {  
-        console.log(newValue+ '===' +oldValue);  
-        
+/*    $scope.$watch('tabName', function(newValue, oldValue) {
+        console.log(newValue+ '===' +oldValue);
+
 
     });
 
@@ -157,7 +153,7 @@ appControllers.controller('phoneSim',['$scope','$rootScope','$location','adminSe
             return false;
         }
     }*/
-    
+
 }]);
 
 appControllers.controller('specificEdit',['$scope','$location','adminService', function($scope,$location,adminService){
@@ -171,12 +167,14 @@ appControllers.controller('specificEdit',['$scope','$location','adminService', f
     };
 }]);
 appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$location','tempSelect',function($scope,$rootScope,adminService,$location,tempSelect){
-    
+
     var addr = window.location.href.toString();
     if(addr.indexOf("?eventId")>=0){
         var id = addr.substring(addr.indexOf("?eventId="), addr.length);
+        $rootScope.processMsg = '正在获取数据，请稍候······';
         adminService.getEventById(id).success(function(data){
             notAdmin(data);
+            $rootScope.processMsg = null;
             console.log(data);
             $rootScope.thisEvent = data.event;
             $scope.basic.college = $rootScope.thisEvent.college;
@@ -204,14 +202,15 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
             $('#stepTab a[href="#result"]').attr('data-toggle','tab');
             $rootScope.eventDate = $scope.basic.date;
         }).error(function(err){
-            console.log(encodeURIComponent(JSON.stringify(a)));
+            $rootScope.processMsg = null;
+            $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
         });
     }else{
             $rootScope.thisEvent = null;
             $rootScope.topics = null;
             $rootScope.EventID = null;
     }
-    
+
 
     $scope.basic = {template:'1',shakeFlag: true};
     $rootScope.templateId = '1';
@@ -262,12 +261,19 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
             $rootScope.errorMsg = '请选择模板';
             return;
         }
+        console.log($rootScope.EventID)
+        if($rootScope.EventID){
+            $scope.basic.eventId = $rootScope.EventID;
+        }
         var a = $scope.basic;
         if($scope.isDisabled==undefined||$scope.isDisabled==false){
             $scope.isDisabled = true;
+            $rootScope.processMsg = '正在保存数据，请稍候······';
             adminService.newStepOne(encodeURIComponent(JSON.stringify(a))).success(function(data){
+                a = null;
                 $scope.isDisabled = false;
                 notAdmin(data);
+                $rootScope.processMsg = null;
                 console.log(data);
                 $('#stepTab a[href="#topics"]').attr('data-toggle','tab');
                 $('#stepTab a[href="#topics"]').tab('show');
@@ -275,27 +281,26 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
                 if(!$rootScope.eventDate){
                     $rootScope.eventDate = a.date;
                 }
-                
+
                 if(!document.getElementById('qrcode').hasChildNodes()){
                     mkQrcode(data.EventID);
                 }
-                
+
             }).error(function(err){
                 $scope.isDisabled = false;
+                $rootScope.processMsg = null;
+                $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
                 console.log(encodeURIComponent(JSON.stringify(a)));
             });
         }
 
-
+        console.log($rootScope);
         if(!$rootScope){
-            $rootScope.topics = new Array();
             $rootScope.isHide = false;
         }else if(!$rootScope.thisEvent){
             console.log($rootScope.thisEvent)
-            $rootScope.topics = new Array();
             $rootScope.isHide = false;
         }else if(!$rootScope.thisEvent.speakers){
-            $rootScope.topics = new Array();
             $rootScope.isHide = false;
         }else{
             $rootScope.isHide = true;
@@ -338,14 +343,14 @@ appControllers.controller('newStepOne',['$scope','$rootScope','adminService','$l
         }else{
             $('[data-link-field="dtp_input2"]').datetimepicker('setEndDate',  $rootScope.eventDate+' '+$scope.basic.endtime);
         }
-        
+
         $('[data-link-field="dtp_input2"]').datetimepicker('setStartDate',  $rootScope.eventDate);
         if(!$scope.basic||!$scope.basic.starttime){
             $('[data-link-field="dtp_input3"]').datetimepicker('setStartDate', $rootScope.eventDate+' 23:59');
         }else{
             $('[data-link-field="dtp_input3"]').datetimepicker('setStartDate', $rootScope.eventDate+' '+$scope.basic.starttime);
         }
-        
+
         $('[data-link-field="dtp_input3"]').datetimepicker('setEndDate', $rootScope.eventDate+' 23:59');
 
     });
@@ -361,16 +366,16 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
         }else{
             $('[data-link-field="dtp_input4"]').datetimepicker('setEndDate',  $rootScope.eventDate+' '+$scope.topic.endTime);
         }
-        
+
         $('[data-link-field="dtp_input4"]').datetimepicker('setStartDate',  $rootScope.eventDate);
         if(!$scope.topic||!$scope.topic.startTime){
             $('[data-link-field="dtp_input5"]').datetimepicker('setStartDate', $rootScope.eventDate+' 0:00');
         }else{
             $('[data-link-field="dtp_input5"]').datetimepicker('setStartDate', $rootScope.eventDate+' '+$scope.topic.startTime);
         }
-        
+
         $('[data-link-field="dtp_input5"]').datetimepicker('setEndDate', $rootScope.eventDate+' 23:59');
-    }); 
+    });
     $scope.displayExistImg = false;
     $scope.displayExistFile = false;
 	$scope.uploadImages = function(file, errFiles){
@@ -402,7 +407,7 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                     "File-Type" : "img"
                 },
                 data: {'filename':$scope.f,'type':$scope.f.type,'file': $scope.f},
-                
+
             });
             $scope.topic.speakerImg = $scope.topic.timestamp + '_img/'+ $scope.f.name;
             $scope.f.upload.then(function (response) {
@@ -410,12 +415,12 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                     $scope.f.result = response.data;
 
                 });
-                
+
             }, function (response) {
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
             }, function (evt) {
-                $scope.f.progress = Math.min(100, parseInt(100.0 * 
+                $scope.f.progress = Math.min(100, parseInt(100.0 *
                                          evt.loaded / evt.total));
             });
         }
@@ -457,7 +462,7 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
         //         if (response.status > 0)
         //             $scope.errorMsg = response.status + ': ' + response.data;
         //     }, function (evt) {
-        //         file.progress = Math.min(100, parseInt(100.0 * 
+        //         file.progress = Math.min(100, parseInt(100.0 *
         //                                  evt.loaded / evt.total));
         //     });
         // });
@@ -472,37 +477,40 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                     "File-Type" : "file"
                 },
                 data: {'filename':file.name,'type':file.type,'file':file},
-                
+
             });
             $scope.topic.speakerFile = $scope.topic.timestamp + '_file/'+ file.name;
             file.upload.then(function(response) {
                 $timeout(function() {
                     file.result = response.data;
                 });
-                
+
             }, function (response) {
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
             }, function (evt) {
-                file.progress = Math.min(100, parseInt(100.0 * 
+                file.progress = Math.min(100, parseInt(100.0 *
                                          evt.loaded / evt.total));
             });
         });
         }
     };
-    
+
 	$scope.proceed = function(){
 
         $rootScope.eventUrl = eventUrl;
         var qrcode = $('#qrcode img').attr('src');
-        console.log(qrcode);
-        var a = {id:$rootScope.EventID,eventUrl:encodeURIComponent($rootScope.eventUrl.toString()),qrcode:qrcode}
+        $rootScope.processMsg = '正在保存数据，请稍候······';
+        var a = {id:$rootScope.EventID,eventUrl:encodeURIComponent($rootScope.eventUrl.toString()),qrcode:''};
     	adminService.saveEventUrl(encodeURIComponent(JSON.stringify(a))).success(function(data){
                 notAdmin(data);
+                $rootScope.processMsg = null;
                 console.log(data);
                 $('#stepTab a[href="#result"]').attr('data-toggle','tab');
                 $('#stepTab a[href="#result"]').tab('show');
             }).error(function(err){
+                $rootScope.processMsg = null;
+                $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
                 console.log(encodeURIComponent(JSON.stringify(a)));
             });
 
@@ -547,9 +555,11 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
         if($scope.topic.speakerFile==null){
             $scope.topic.speakerFile='';
         }
+        $rootScope.processMsg = '正在保存数据，请稍候······';
         adminService.saveTopic(encodeURIComponent(JSON.stringify($scope.topic))).success(function(data){
             $scope.saveDisabled = false;
             notAdmin(data);
+            $rootScope.processMsg = null;
             if(data.Message =='Error'){
                 $rootScope.errorMsg = '保存失败，请刷新页面重新尝试。'
                 return;
@@ -566,20 +576,24 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                     $rootScope.topics[i].endTime = $scope.topic.endTime;
                 }
             }
-            if($scope.topic.speakerImg && $scope.topic.speakerImg.indexOf(currentHost + '/CampusFileUpload/')<0){
+            if($scope.topic.speakerImg && $scope.topic.speakerImg.indexOf(currentHost + ':'+eventPort+'/CampusFileUpload/')<0){
                 // $scope.topic.speakerImg = 'http://9.115.24.168/CampusFileUpload/'+ $scope.topic.speakerImg;
                 if(!($scope.topic.speakerImg==null)){
-                    $scope.topic.speakerImg = currentHost + '/CampusFileUpload/'+ $scope.topic.speakerImg;
+                    $scope.topic.speakerImg = currentHost + ':'+eventPort+'/CampusFileUpload/'+ $scope.topic.speakerImg;
                 }
             }
             if($scope.topic.speakerFile && $scope.topic.speakerFile.indexOf(currentHost + '/CampusFileUpload/')<0){
                 // $scope.topic.speakerFile = 'http://9.115.24.168/CampusFileUpload/'+ $scope.topic.speakerFile;
                 if(!($scope.topic.speakerFile==null)){
-                    $scope.topic.speakerFile = currentHost + '/CampusFileUpload/'+ $scope.topic.speakerFile;
+                    $scope.topic.speakerFile = currentHost + ':'+eventPort+'/CampusFileUpload/'+ $scope.topic.speakerFile;
                 }
             }
+            console.log(flag)
             if(flag){
                 $scope.topic.id=data.TopicID;
+                if(!$rootScope.topics){
+                    $rootScope.topics = [];
+                }
                 $rootScope.topics.push($scope.topic);
             }
             $scope.topic = null;
@@ -587,10 +601,12 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
             $scope.isHide = true;
             console.log(data)
         }).error(function(err){
+            $rootScope.processMsg = null;
+            $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
             console.log(err);
         });
 
-    	
+
     }
     $scope.addItem = function(){
         $scope.files = null;
@@ -631,14 +647,14 @@ appControllers.controller('newStepTwo',['$scope','$rootScope', 'Upload', '$timeo
                 }
             }).error(function(err){
                 console.log(err);
-            }); 
+            });
         }
-        
+
     }
 }]);
 appControllers.controller('finalStep',['$scope','$rootScope','$timeout','FileSaver','Blob', function($scope, $rootScope,$timeout,FileSaver,Blob){
-    
-    
+
+
 
     $scope.downloadQR = function(){
         // DownLoadReportIMG(document.getElementById('qrcode').children[1].src)
@@ -652,7 +668,7 @@ appControllers.controller('finalStep',['$scope','$rootScope','$timeout','FileSav
         $scope.doneMessage = '复制成功';
         $timeout(function(){
             $scope.doneMessage = '';
-        }, 1000); 
+        }, 1000);
     }
 
 }]);

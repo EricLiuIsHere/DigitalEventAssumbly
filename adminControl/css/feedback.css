@@ -158,22 +158,44 @@ h4.showNone {
   border-radius: 7px;
 }
 
-.successBox {
-  width: 100%;
-  display: block;
+.successFeedbackBox {
   position: fixed;
+  margin: auto;
+  left: 0;
+  right: 0;
   top: 5px;
+  width: 20%;
   z-index: 10;
 }
 
-.successMsg {
+.successFeedbackMsg {
   display: block;
-  width: 25%;
   padding: 10px;
   margin: 0 auto;
   text-align: center;
   line-height: 20px;
   background: #1fcf6d;
+  border-radius: 5px;
+  color: white;
+}
+
+.errorFeedbackBox {
+  position: fixed;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 5px;
+  width: 20%;
+  z-index: 10;
+}
+
+.errorFeedbackMsg {
+  display: block;
+  padding: 10px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 20px;
+  background: #DE2525;
   border-radius: 5px;
   color: white;
 }
@@ -197,15 +219,17 @@ span.emojSpan {
 }
 
 .text-overflow {
-  width:300px;
+  width: 300px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-table.dataTable th.dataTh p{
+table.dataTable th.dataTh p {
   max-width: 300px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
 }

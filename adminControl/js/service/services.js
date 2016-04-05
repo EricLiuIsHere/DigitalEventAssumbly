@@ -20,14 +20,15 @@ appServices.factory('adminService', function($http, $q) {
     userInfo;
     console.log(window.location.hostname)
   if (window.location.hostname == 'localhost' || window.location.hostname == '9.115.24.168') {
-    host = 'http://9.115.24.168:9081/campus/';
-    // host = 'http://9.112.68.74:9080/campus/';
+    host = 'http://9.115.24.168:9080/campus/';
+    // host = 'http://9.112.69.0:9080/campus/';
     // host = 'https://9.115.24.168:9443/campus/';
-  } else if (window.location.hostname == '170.225.225.31') {
-    host = 'http://9.98.15.31:9080/campus/';
-  }
-  else {
-    host = 'http://9.115.24.168:9081/campus/';
+  }else if(window.location.hostname == '159.122.251.251'){
+    host = 'http://159.122.251.251:9080/campus/'
+  } else if (window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com') {
+    host = 'http://dss.cn.edst.ibm.com:9080/campus/';
+  }else {
+    host = 'http://9.115.24.168:9080/campus/';
   }
 
   return {
@@ -105,6 +106,9 @@ appServices.factory('adminService', function($http, $q) {
     saveQuestion: function(data){
       return $http.jsonp(host + 'SaveQuestion?jsonStr=' + data + '&callback=JSON_CALLBACK');
     },
+    saveAdminComments:function(id,data){
+      return $http.jsonp(host + 'SaveAdminComments' + id + '&jsonStr=' + data + '&callback=JSON_CALLBACK');
+    },
     /**
      * Returns
      * @author Jun Jie Zhang <dlzhjj@cn.ibm.com>
@@ -115,6 +119,9 @@ appServices.factory('adminService', function($http, $q) {
 
     getOneFeedback: function(id) {
       return $http.jsonp(host + 'GetQuestions?id=' + id + '&callback=JSON_CALLBACK');
+    },
+    getOneFeedbackByUser: function(id) {
+      return $http.jsonp(host + 'GetQuestions?id=' + id + '&isUser=1&callback=JSON_CALLBACK');
     },
 
     deleteFeedback: function(id) {

@@ -2,17 +2,16 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
     var dd = new Date();
     var preLoadData = HRService.preLoad.getPreDate();
     $scope.eventDate = preLoadData.initInfo.date ? (Number(preLoadData.initInfo.date.split('-')[1]) + '月' + Number(preLoadData.initInfo.date.split('-')[2]) + '日') : dd.getFullYear();
-    
     switch($rootScope.theme)
     {
     case '1':
         $scope.shakeImg = './images/dark_shake_bg.png';
         break;
     case '2':
-        $scope.shakeImg = '2';
+        $scope.shakeImg = './images/blue_shake_m.png';
         break;
     case '3':
-        $scope.shakeImg = '3';
+        $scope.shakeImg = './images/green_shake_bg.png';
         break;
     default:
         $scope.shakeImg = './images/dark_shake_bg.png';
@@ -47,8 +46,8 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
         myShakeEvent.start();
 
         // register a shake event
-        window.addEventListener('shake', shakeEventDidOccur, false);     
-        //shakeEventDidOccur();          
+        //window.addEventListener('shake', shakeEventDidOccur, false);     
+        shakeEventDidOccur();          
     }   
 
     
@@ -59,23 +58,23 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
         playSound();
         playAnimation();        
         var tel = HRService.Auth.getUser().tel;
-
+	 var uid = HRService.Auth.getUser().uid;
         var condition1 = !posted; //是否已提交
         var condition2 = shakePostStart < 0; //是否正在提交
         if (condition2) {
             shakePostStart = new Date().getTime();
 
             var host;            
-            if(window.location.hostname == '170.225.225.31'){
+            if(window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com'){
                 host = 'http://170.225.225.31:9080/campus/Shaking';
             } else {
-                host = 'http://9.115.26.86:9080/campus/Shaking';
+                host = 'http://9.115.24.168:9080/campus/Shaking';
             } 
 
             $.ajax({
                 url: host, 
                 type: "get",
-                data: {pnum: tel},  
+                data: {pnum: tel, uid: uid},
                 dataType: "jsonp",
                 timeout: 1000,
             })

@@ -109,6 +109,24 @@ input[name="selectTemplate"]{
     border-radius: 5px;
     color: white;
 }
+.processBox{
+    width: 100%;
+    display: block;
+    position: fixed;
+    top: 5px;
+    z-index: 10;
+}
+.processMsg{
+    display: block;
+    width: 35%;
+    padding: 10px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 20px;
+    background: lightgreen;
+    border-radius: 5px;
+    color: black;
+}
 .eventAddr{
 	width: 75%;
     display: inline-block;
@@ -125,4 +143,22 @@ hr{
 }
 .need-fill{
 	color: red;
+}
+footer{
+    float: left;
+    bottom: 0px;
+    margin-top: 10px;
+    width: 100%;
+    display: block;
+    clear: both;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    color: #767676;
+    font-size: 17px;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+}
+.view-section{
+    min-height: 90%
 }

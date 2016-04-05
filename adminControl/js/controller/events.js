@@ -5,26 +5,18 @@ var notAdmin = function(data){
 }
 appControllers.controller('eventsBody',['$scope','$rootScope','$timeout','adminService',function($scope,$rootScope,$timeout,adminService){
 	$scope.showErrorMsg = false;
+	$rootScope.processMsg = '正在获取数据，请稍候······';
 	adminService.getAllEvents().success(function(data){
 		notAdmin(data);
+		$rootScope.processMsg = null;
 	       $scope.events = data.events
 	        console.log(data.events);
 	    }).error(function(err){
+	    	$rootScope.processMsg = null;
+            $rootScope.errorMsg = '服务器链接异常，请稍后再试。'
 	        console.log(err);
 	    });
-	
-    $rootScope.errorMsg = null;
-    $scope.$watch('errorMsg', function () {
-        if($rootScope.errorMsg){
-            $scope.showErrorMsg = true;
-            $timeout(function(){
-                $scope.showErrorMsg = false;
-                $rootScope.errorMsg = null;
-            }, 5000); 
-        }
-        
-        
-    });
+
 	$scope.signOut = function(){
 		adminService.signOut().success(function(data){
 		window.location.href = '#/login';

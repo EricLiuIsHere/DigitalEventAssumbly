@@ -46,8 +46,8 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
         myShakeEvent.start();
 
         // register a shake event
-        //window.addEventListener('shake', shakeEventDidOccur, false);     
-        shakeEventDidOccur();          
+        window.addEventListener('shake', shakeEventDidOccur, false);     
+        // shakeEventDidOccur();          
     }   
 
     
@@ -58,7 +58,7 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
         playSound();
         playAnimation();        
         var tel = HRService.Auth.getUser().tel;
-	 var uid = HRService.Auth.getUser().uid;
+	    var uid = HRService.Auth.getUser().uid;
         var condition1 = !posted; //是否已提交
         var condition2 = shakePostStart < 0; //是否正在提交
         if (condition2) {
@@ -128,11 +128,19 @@ appControllers.controller('luckyCtl', ['$rootScope', '$scope', '$timeout', '$coo
     function playAnimation() {
         var eleShake = $("#shakeAnimation");
         eleShake.hasClass('active') ? '': eleShake.addClass('active');
+        // jessy 20160401 start
+        var tree = $(".green-shake #shakeAnimationbg div");
+        tree.hasClass('treeactive') ? '' : tree.addClass('treeactive');
+        // jessy 20160401 end
     }
 
     function stopAnimation() {
         var eleShake = $("#shakeAnimation");
         eleShake.hasClass('active') ? eleShake.removeClass('active') : '';
+        // jessy 20160401 start      
+        var tree = $('.green-shake #shakeAnimationbg div');
+        tree.hasClass('treeactive') ? tree.removeClass('treeactive') : '';
+        // jessy 20160401 end
     }
 
     function showOverlay() {

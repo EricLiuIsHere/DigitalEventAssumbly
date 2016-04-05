@@ -25,7 +25,17 @@
 	<div class="shake-content">
 		<div class="shake-outer">
 			<!--img id="shakeAnimation" class="shake" src="./images/dark_shake_bg.png"-->
-			<img id="shakeAnimation" ng-class="{'1':'shake', '2':'shake', '3':'lr-shake'}[theme]" ng-src="{{shakeImg}}">
+			<!-- jessy 20160401 start -->
+			<div id="shakeAnimationbg" ng-class="{'1':'hide', '2':'star', '3':'tree'}[theme]">
+				<div class="star1"></div>
+				<div class="star2"></div>
+				<div class="star3"></div>
+				<div class="star4"></div>
+				<div class="star5"></div>
+			</div>
+			
+			<img id="shakeAnimation" ng-class="{'1':'shake', '2':'lr-shake', '3':'lr-shake'}[theme]" ng-src="{{shakeImg}}">	
+			<!-- jessy 20160401 end -->	
 		</div>
 		<p>轻松摇一摇 好运好礼速速到</p>
 	</div>

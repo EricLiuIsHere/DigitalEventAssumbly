@@ -1221,8 +1221,8 @@ body, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, ol, li, p, form, input, button {ma
 /****** shake page ******/
 .blue-shake{
 	background:#2196f3;
-	background-image: url(../images/blue_shake_bg.png);
-	background-position: center 65%;
+	/*background-image: url(../images/blue_shake_bg.png);
+	background-position: center 65%;*/
 	background-repeat: no-repeat;
 }
 

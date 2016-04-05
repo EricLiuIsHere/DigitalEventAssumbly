@@ -13,6 +13,12 @@ if(window.location.hostname == '170.225.225.31' || window.location.hostname == '
 //   jsonp:"callback",
 // });
 
+// jessy 20160401 start
+$("#reshake button").on("click", function(){
+  location.reload() 
+})
+// jessy 20160401 end
+
 $("#start").on("click",function() {
   $.ajax({
     type:"GET",

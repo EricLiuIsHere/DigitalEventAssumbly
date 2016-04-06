@@ -120,6 +120,9 @@ appServices.factory('adminService', function($http, $q) {
     getOneFeedback: function(id) {
       return $http.jsonp(host + 'GetQuestions?id=' + id + '&callback=JSON_CALLBACK');
     },
+    getOneFeedbackByUser: function(id) {
+      return $http.jsonp(host + 'GetQuestions?id=' + id + '&isUser=1&callback=JSON_CALLBACK');
+    },
 
     deleteFeedback: function(id) {
       return $http.jsonp(host + 'DeleteTitle?titleId=' + id + '&callback=JSON_CALLBACK');

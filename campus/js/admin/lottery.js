@@ -1,7 +1,7 @@
 var host;
 var startTime = 0;
 
-if(window.location.hostname == '170.225.225.31'){
+if(window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com'){
     host = 'http://170.225.225.31:9080';
 } else {
     host = 'http://9.115.24.168:9080';
@@ -13,10 +13,16 @@ if(window.location.hostname == '170.225.225.31'){
 //   jsonp:"callback",
 // });
 
+// jessy 20160401 start
+$("#reshake button").on("click", function(){
+  location.reload() 
+})
+// jessy 20160401 end
+
 $("#start").on("click",function() {
   $.ajax({
     type:"GET",
-    url: host + "/campus/StartShake?shakeSwitch=Y",
+    url: host + "/campus/StartShake?shakeSwitch=Y&" + location.hash.split('#')[1],
     dataType: "jsonp",
     jsonp:"callback",
   })
@@ -40,7 +46,7 @@ $("#start").on("click",function() {
 $("#end").on("click",function() {
   //if (startTime > 0 && new Date().getTime() - startTime > 5000) {
     $.ajax({
-      url: host + "/campus/StartShake?shakeSwitch=N",
+      url: host + "/campus/StartShake?shakeSwitch=N&" + location.hash.split('#')[1],
       dataType: "jsonp",
       jsonp:"callback",
     })

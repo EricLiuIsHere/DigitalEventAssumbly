@@ -220,7 +220,11 @@ appControllers.controller('commentsDetails',['$scope','$timeout','$rootScope','a
     }
     $scope.saveQuestion = function(){
         $rootScope.processMsg = '正在保存，请稍候······';
-        adminService.saveQuestion(encodeURIComponent(JSON.stringify($scope.displayList))).success(function(data){
+        $scope.refinedDisplayList = [];
+        for(var i=0;i<$scope.displayList.length;i++){
+           $scope.refinedDisplayList.push({"choosen":$scope.displayList[i].choosen,"cid":$scope.displayList[i].cid});
+        }
+        adminService.saveQuestion(encodeURIComponent(JSON.stringify($scope.refinedDisplayList))).success(function(data){
                 notAdmin(data);
                 $rootScope.processMsg = null;
                 console.log(data);

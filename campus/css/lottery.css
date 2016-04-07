@@ -330,14 +330,18 @@ body.ani #end{
 
 #show-box {
 	width: 39%;
-	height: 30%;
+	/*height: 30%;*/
 	box-sizing: border-box;
 	padding: 1% 0 0 3%;
 	transform: rotate(-6deg);
            /* background-color: #ccc;*/
 	color: #7a348f;
 	font-size: 68px;
-
+  position: absolute;
+  top: 50%;
+  margin-top: -30px;
+  left: 50%;
+  margin-left: -19%;
 	
 	display: -ms-flexbox;
   display: -webkit-flex;
@@ -352,29 +356,70 @@ body.ani #end{
   align-items: center;
   text-align: center;
 }
+#reshake{
+  width: 39%;
+  /*height: 30%;*/
+  box-sizing: border-box;
+  padding: 1% 0 0 1%;
+  
+           /* background-color: #ccc;*/
+  color: #7a348f;
+  font-size: 68px;
+  position: absolute;
+  bottom: 10%;
+  
+  left: 50%;
+  margin-left: -19%;
+  
+  
+  align-items: center;
+  text-align: center;
+}
+#reshake button{
+  background: #9c6aaa;
+  color: #FFF;
+  font-size: 22px;
+  border-top-color: #c492d2;
+  border-right-color: #c492d2;
+  border-left-color: #271b2b;
+  border-bottom-color: #271b2b;
 
+  padding: 5px 15px;
+}
 @media (max-width: 319px) {
 	#show-box {
 		font-size: 16px;
 	}
+  #reshake button{
+  font-size: 12px;
+  }
 }
 
 @media (min-width: 320px) {
 	#show-box {
 		font-size: 20px;
 	}
+  #reshake button{
+  font-size: 12px;
+  }
 }
 
 @media (min-width: 460px) {
 	#show-box {
 		font-size: 30px;
 	}
+    #reshake button{
+  font-size: 14px;
+  }
 }
 
 @media (min-width: 640px) {
 	#show-box {
 		font-size: 40px;
 	}
+    #reshake button{
+  font-size: 16px;
+  }
   html,body{font-size: 30%}
 }
 
@@ -382,6 +427,9 @@ body.ani #end{
 	#show-box {
 		font-size: 50px;
 	}
+    #reshake button{
+  font-size: 18px;
+  }
   html,body{font-size: 40%}
 }
 
@@ -389,6 +437,9 @@ body.ani #end{
 	#show-box {
 		font-size: 60px;
 	}
+    #reshake button{
+  font-size: 22px;
+  }
   html,body{font-size: 50%}
 }
 
@@ -396,4 +447,7 @@ body.ani #end{
 	#show-box {
 		font-size: 68px;
 	}
+    #reshake button{
+  font-size: 22px;
+  }
 }

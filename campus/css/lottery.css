@@ -329,17 +329,17 @@ body.ani #end{
 }
 
 #show-box {
-	width: 39%;
-	/*height: 30%;*/
+	width: 42%;
+	height: 15%;
 	box-sizing: border-box;
 	padding: 1% 0 0 3%;
-	transform: rotate(-6deg);
+	transform: rotate(-7deg);
            /* background-color: #ccc;*/
 	color: #7a348f;
 	font-size: 68px;
   position: absolute;
   top: 50%;
-  margin-top: -30px;
+  margin-top: -45px;
   left: 50%;
   margin-left: -19%;
 	

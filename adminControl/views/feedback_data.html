@@ -20,7 +20,7 @@
     <tr>
       <th class="text-center">#
       </th>
-      <th class="text-center sortable header observation-header" ng-click="tableParams.sorting('tel', tableParams.isSortBy('tel', 'desc') ? 'asc' : 'desc')">用户手机号
+      <th class="text-center sortable header observation-header" ng-click="tableParams.sorting('tel', tableParams.isSortBy('tel', 'desc') ? 'asc' : 'desc')" style="white-space: nowrap;">用户手机号
       </th>
       <th class="text-center dataTh  sortable header observation-header" ng-repeat="ques in question.list" ng-click="tableParams.sorting('answer', tableParams.isSortBy('answer', 'desc') ? 'asc' : 'desc')">
         <p title="{{ques.question}}">{{ques.question}}</p>

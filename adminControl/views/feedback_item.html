@@ -100,7 +100,8 @@
             <button type="button" class="btn btn-default" ng-click="downloadQR()">下载二维码</button>
             <br/>
             <a class="eventAddr center-block qrUrl" ng-href="{{url}}" target="_blank">{{url}}</a>
-            <button type="button" class="btn btn-default" clip-copy="url" ng-click="copyDone()">复制链接</button>
+            <br/>
+            <button type="button" class="btn btn-default" clip-copy="url" ng-click="copyDone()" >复制链接</button>
             <br/>
             <p class="copy-done" style="height:20px;margin-top:20px">{{doneMessage}}</p>
           </div>

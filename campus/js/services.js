@@ -3,7 +3,7 @@ appServices.factory('HRService', function($http, $q){
 		userInfo,
 		preData;
 	if(window.location.hostname == '170.225.225.31' || window.location.hostname == 'dss.cn.edst.ibm.com'){
-	    host = 'http://170.225.225.31:9080';
+	    host = 'http://dss.cn.edst.ibm.com:9080';
 	} else {
 	    host = 'http://9.115.24.168:9080';
 	} 
